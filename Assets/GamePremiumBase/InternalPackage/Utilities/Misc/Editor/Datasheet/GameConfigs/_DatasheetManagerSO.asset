@@ -23,5 +23,3 @@ MonoBehaviour:
     SerializationNodes: []
   m_DatasheetWrappers:
   - m_Datasheet: {fileID: 11400000, guid: 915492c3a87b7ed47bcb0ffb4d80093f, type: 2}
-  - m_Datasheet: {fileID: 11400000, guid: 62a5a4d6e2c79374189bf7ae5075b805, type: 2}
-  - m_Datasheet: {fileID: 11400000, guid: 2c00300fff1c744838ce4723c780fc42, type: 2}
