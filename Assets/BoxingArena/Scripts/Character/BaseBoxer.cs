@@ -12,17 +12,10 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
     [SerializeField, BoxGroup("References")] protected Transform m_RightHitBox;
     [SerializeField, BoxGroup("References")] protected Transform m_FootstepPointL;
     [SerializeField, BoxGroup("References")] protected Transform m_FootstepPointR;
-    [SerializeField, BoxGroup("Data")] protected StatsSO m_Stats;
+    [SerializeField, BoxGroup("Data")] protected StatsSO m_StatsSOData;
     [SerializeField, BoxGroup("Data")] protected WeakPointSO m_WeakPointSO;
 
-    protected float m_CurrentHealth;
-    protected float m_CurrentAttackDamage;
-    protected float m_CurrentAttackSpeed;
-    protected float m_CurrentBlockChance;
-    protected float m_CurrentMoveSpeed;
-    protected float m_CurrentCriticalChance;
-    protected float m_CurrentCriticalMultiplier;
-    protected float m_CurrentAggression;
+    [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
 
     protected bool m_IsAlive = true;
 
@@ -40,12 +33,12 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
             m_RightHitBox = m_Animator.GetBoneTransform(HumanBodyBones.RightHand);
             m_FootstepPointL = m_Animator.GetBoneTransform(HumanBodyBones.LeftFoot);
             m_FootstepPointR = m_Animator.GetBoneTransform(HumanBodyBones.RightFoot);
-            SetupWeakPoint();
+            SetUpWeakPoint();
         }
         UpdateStatus();
     }
 
-    private void SetupWeakPoint()
+    private void SetUpWeakPoint()
     {
         WeakPoint[] weakPoints = GetComponentsInChildren<WeakPoint>();
         foreach (var weakPoint in weakPoints)
@@ -80,60 +73,59 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
 
     protected virtual void UpdateStatus()
     {
-        m_CurrentHealth = m_Stats.MaxHealth;
-        m_CurrentAttackDamage = m_Stats.AttackDamage;
-        m_CurrentAttackSpeed = m_Stats.AttackSpeed;
-        m_CurrentBlockChance = m_Stats.BlockChance;
-        m_CurrentMoveSpeed = m_Stats.MoveSpeed;
-        m_CurrentCriticalChance = m_Stats.CriticalChance;
-        m_CurrentCriticalMultiplier = m_Stats.CriticalMultiplier;
-        m_CurrentAggression = m_Stats.Aggression;
+        m_BoxStats = new BoxerStats();
+        m_BoxStats.LoadStats(m_StatsSOData);
     }
 
     public virtual void Attack(IDamageable target)
     {
         if (!m_IsAlive || target == null) return;
 
-        // float finalDamage = m_CurrentAttackDamage;
-        // if (Random.value < m_CurrentCriticalChance)
-        //             finalDamage *= m_CurrentCriticalMultiplier;
-        // target.TakeDamage(WeakPointType.Head, finalDamage);
+        float finalDamage = m_BoxStats.AttackDamage;
+        if (Random.value < m_BoxStats.CriticalChance)
+            finalDamage *= m_BoxStats.CriticalMultiplier;
+
+        target.TakeDamage(finalDamage);
     }
 
     public virtual void TakeDamage(WeakPointType weakPointType, float amount)
     {
         if (!m_IsAlive) return;
         if (TryTakeDamage()) return;
-        float dameHandle = amount * m_WeakPointSO.GetMultiplier(weakPointType);
 
-        ApplyDamage(dameHandle);
-        if (m_CurrentHealth <= 0)
-        {
-            Die();
-        }
+        var damageInfo = new DamageInfo(
+            amount * m_WeakPointSO.GetMultiplier(weakPointType),
+            weakPointType
+        );
+        HandleDamage(damageInfo);
     }
+
 
     protected virtual bool TryTakeDamage()
     {
         float roll = Random.Range(0f, 1f);
 
-        if (roll < m_CurrentBlockChance)
+        if (roll < m_BoxStats.BlockChance)
         {
             Debug.Log("Blocked the punch!");
             return true;
         }
         return false;
     }
+    protected virtual void HandleDamage(DamageInfo damageInfo)
+    {
+        float finalDamage = damageInfo.Amount;
+        if (Random.value < m_BoxStats.CriticalChance)
+            finalDamage *= m_BoxStats.CriticalMultiplier;
+
+        ApplyDamage(finalDamage);
+        if (m_BoxStats.Health <= 0)
+            Die();
+    }
 
     protected virtual void ApplyDamage(float incomingDamage)
     {
-        m_CurrentHealth -= incomingDamage;
-        OnHitFeedback();
-    }
-
-    public virtual void OnHitFeedback()
-    {
-        m_Animator?.SetTrigger("Hit");
+        m_BoxStats.Health -= incomingDamage;
     }
 
     protected virtual void Die()

@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: WeakPointConfig
   m_EditorClassIdentifier: 
   m_WeakPointMultipliers:
-    m_Keys: 000000000200000001000000
+    m_Keys: 0000000002000000
     m_Values:
     - 2
-    - 1.5
     - 1
     m_KeyTemp: 0
     m_ValueTemp: 0

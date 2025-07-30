@@ -14,9 +14,10 @@ public class WeakPoint : MonoBehaviour, IDamageable
             m_Boxer = GetComponentInParent<BaseBoxer>();
     }
 
-    public void TakeDamage(WeakPointType weakPointType, float amount)
+    public void TakeDamage(float amount)
     {
-        m_Boxer.TakeDamage(weakPointType, amount);
+        if (m_Boxer == null) return;
+        m_Boxer.TakeDamage(m_WeakPointType, amount);
     }
 
     public void Load(BaseBoxer baseBoxer)
