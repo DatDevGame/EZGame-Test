@@ -71,33 +71,34 @@ public class LookingForTargetState : AIBotState
 
     private float CalculateTargetScore(INavigationPoint navPoint)
     {
-        if (BotController.AIProfile == null)
-            return 0f;
+        // if (BotController.AIProfile == null)
+        //     return 0f;
 
-        float baseScore = 0f;
+        // float baseScore = 0f;
 
         // Base score based on point type
-        switch (navPoint.GetPointType())
-        {
-            case PointType.OpponentPoint:
-                baseScore = BotController.AIProfile.PlayerTargetWeight;
-                break;
-            case PointType.CollectablePoint:
-                baseScore = BotController.AIProfile.CollectableTargetWeight;
-                break;
-            case PointType.UtilityPoint:
-                baseScore = BotController.AIProfile.UtilityTargetWeight;
-                break;
-            case PointType.NormalPoint:
-                baseScore = 0.2f; // Lower priority for normal points
-                break;
-        }
+        // switch (navPoint.GetPointType())
+        // {
+        //     case PointType.OpponentPoint:
+        //         baseScore = BotController.AIProfile.PlayerTargetWeight;
+        //         break;
+        //     case PointType.CollectablePoint:
+        //         baseScore = BotController.AIProfile.CollectableTargetWeight;
+        //         break;
+        //     case PointType.UtilityPoint:
+        //         baseScore = BotController.AIProfile.UtilityTargetWeight;
+        //         break;
+        //     case PointType.NormalPoint:
+        //         baseScore = 0.2f; // Lower priority for normal points
+        //         break;
+        // }
 
         // Distance factor (closer = higher score)
-        float distance = Vector3.Distance(BotController.BotTransform.position, navPoint.GetTargetPoint());
-        float distanceFactor = 1f - (distance / BotController.AIProfile.DetectionRange);
+        // float distance = Vector3.Distance(BotController.BotTransform.position, navPoint.GetTargetPoint());
+        // float distanceFactor = 1f - (distance / BotController.AIProfile.DetectionRange);
 
-        return baseScore * distanceFactor;
+        // return baseScore * distanceFactor;
+        return 0;
     }
 
     protected List<INavigationPoint> GetRandomNavPoints()

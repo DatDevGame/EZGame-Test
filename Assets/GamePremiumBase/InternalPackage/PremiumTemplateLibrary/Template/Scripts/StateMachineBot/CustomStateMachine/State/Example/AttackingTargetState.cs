@@ -31,11 +31,11 @@ public class AttackingTargetState : AIBotState
         if (BotController.Target == null)
             return;
 
-        float distanceToTarget = Vector3.Distance(BotController.BotTransform.position, BotController.Target.GetTargetPoint());
-        if (distanceToTarget > BotController.AIProfile?.AttackRange)
-        {
-            // Target is out of attack range, stop attacking
-        }
+        // float distanceToTarget = Vector3.Distance(BotController.BotTransform.position, BotController.Target.GetTargetPoint());
+        // if (distanceToTarget > BotController.AIProfile?.AttackRange)
+        // {
+        //     // Target is out of attack range, stop attacking
+        // }
     }
 
     private void PerformAttack()
@@ -56,18 +56,18 @@ public class AttackingTargetToChasingTargetTransition : AIBotStateTransition
     protected override bool Decide()
     {
         //Condition Transition In Here
-        if (botController.Target == null)
-            return false;
+        // if (botController.Target == null)
+        //     return false;
 
-        float distanceToTarget = Vector3.Distance(botController.BotTransform.position, botController.Target.GetTargetPoint());
-        bool inAttackRange = distanceToTarget <= botController.AIProfile?.AttackRange;
-        bool inDetectionRange = distanceToTarget <= botController.AIProfile?.DetectionRange;
+        // float distanceToTarget = Vector3.Distance(botController.BotTransform.position, botController.Target.GetTargetPoint());
+        // bool inAttackRange = distanceToTarget <= botController.AIProfile?.AttackRange;
+        // bool inDetectionRange = distanceToTarget <= botController.AIProfile?.DetectionRange;
 
-        if (!inAttackRange && inDetectionRange)
-        {
-            Debug.Log($"AttackingTarget->ChasingTarget because target moved out of attack range (distance: {distanceToTarget:F2})");
-            return true;
-        }
+        // if (!inAttackRange && inDetectionRange)
+        // {
+        //     Debug.Log($"AttackingTarget->ChasingTarget because target moved out of attack range (distance: {distanceToTarget:F2})");
+        //     return true;
+        // }
         return false;
     }
 

@@ -132,48 +132,49 @@ public class AIBotController : MonoBehaviour
     {
         if (m_AIProfile != null && m_NavMeshAgent != null)
         {
-            m_NavMeshAgent.speed = m_AIProfile.MoveSpeed;
-            m_NavMeshAgent.angularSpeed = m_AIProfile.RotationSpeed * 100f;
-            m_NavMeshAgent.stoppingDistance = m_AIProfile.ReachThreshold;
+            // m_NavMeshAgent.speed = m_AIProfile.MoveSpeed;
+            // m_NavMeshAgent.angularSpeed = m_AIProfile.RotationSpeed * 100f;
+            // m_NavMeshAgent.stoppingDistance = m_AIProfile.ReachThreshold;
         }
     }
 
     public virtual List<INavigationPoint> FindTargetsInRange()
     {
-        var targets = new List<INavigationPoint>();
-        if (m_AIProfile == null)
-            return targets;
+        // var targets = new List<INavigationPoint>();
+        // if (m_AIProfile == null)
+        //     return targets;
 
-        var colliders = Physics.OverlapSphere(m_BotTransform.position, m_AIProfile.DetectionRange, m_AIProfile.TargetLayerMask);
-        foreach (var collider in colliders)
-        {
-            var navPoint = collider.GetComponent<INavigationPoint>();
-            if (navPoint != null && navPoint.IsAvailable())
-            {
-                targets.Add(navPoint);
-            }
-        }
-        return targets;
+        // var colliders = Physics.OverlapSphere(m_BotTransform.position, m_AIProfile.DetectionRange, m_AIProfile.TargetLayerMask);
+        // foreach (var collider in colliders)
+        // {
+        //     var navPoint = collider.GetComponent<INavigationPoint>();
+        //     if (navPoint != null && navPoint.IsAvailable())
+        //     {
+        //         targets.Add(navPoint);
+        //     }
+        // }
+        // return targets;
+        return null;
     }
 
     protected virtual void OnDrawGizmosSelected()
     {
-        if (m_AIProfile != null && m_AIProfile.ShowDebugGizmos)
-        {
-            // Draw detection range
-            Gizmos.color = m_AIProfile.DebugColor;
-            Gizmos.DrawWireSphere(m_BotTransform.position, m_AIProfile.DetectionRange);
+        // if (m_AIProfile != null && m_AIProfile.ShowDebugGizmos)
+        // {
+        //     // Draw detection range
+        //     Gizmos.color = m_AIProfile.DebugColor;
+        //     Gizmos.DrawWireSphere(m_BotTransform.position, m_AIProfile.DetectionRange);
 
-            // Draw attack range
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(m_BotTransform.position, m_AIProfile.AttackRange);
+        //     // Draw attack range
+        //     Gizmos.color = Color.red;
+        //     Gizmos.DrawWireSphere(m_BotTransform.position, m_AIProfile.AttackRange);
 
-            // Draw current target if exists
-            if (m_Target != null)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawLine(m_BotTransform.position, m_Target.GetTargetPoint());
-            }
-        }
+        //     // Draw current target if exists
+        //     if (m_Target != null)
+        //     {
+        //         Gizmos.color = Color.yellow;
+        //         Gizmos.DrawLine(m_BotTransform.position, m_Target.GetTargetPoint());
+        //     }
+        // }
     }
 }
