@@ -22,19 +22,19 @@ public class AIBotController : MonoBehaviour
     public event Action<INavigationPoint> OnTargetChanged;
 
     [Header("AI Configuration")]
-    [SerializeField] private AIProfile m_AIProfile;
-    [SerializeField] private NavMeshAgent m_NavMeshAgent;
-    [SerializeField] private Transform m_BotTransform;
+    [SerializeField] protected AIProfile m_AIProfile;
+    [SerializeField] protected NavMeshAgent m_NavMeshAgent;
+    [SerializeField] protected Transform m_BotTransform;
 
     [Header("State Machine")]
-    [SerializeReference] private List<AIBotState> m_States;
+    [SerializeReference] protected List<AIBotState> m_States;
 
 
-    private bool m_IsRunning = false;
-    private INavigationPoint m_Target;
-    private StateMachine.Controller m_StateMachineController = new StateMachine.Controller();
-    private float m_LastAttackTime;
-    private float m_TargetLostTime;
+    protected bool m_IsRunning = false;
+    protected INavigationPoint m_Target;
+    protected StateMachine.Controller m_StateMachineController = new StateMachine.Controller();
+    protected float m_LastAttackTime;
+    protected float m_TargetLostTime;
 
 
     public StateMachine.Controller StateMachineController => m_StateMachineController;
@@ -62,7 +62,7 @@ public class AIBotController : MonoBehaviour
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         // Auto-assign components if not set
         if (m_NavMeshAgent == null)
@@ -78,18 +78,18 @@ public class AIBotController : MonoBehaviour
         }
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         InitializeStateMachine();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!m_IsRunning) return;
         m_StateMachineController.Update();
     }
 
-    public void InitializeStateMachine()
+    public virtual void InitializeStateMachine()
     {
         foreach (var state in m_States)
         {
@@ -98,7 +98,7 @@ public class AIBotController : MonoBehaviour
         StartStateMachine();
     }
 
-    public void StartStateMachine()
+    public virtual void StartStateMachine()
     {
         if (m_States.Count <= 0)
             return;
@@ -106,14 +106,14 @@ public class AIBotController : MonoBehaviour
         m_StateMachineController.StateChanged(m_States[0]);
     }
 
-    public void StopStateMachine()
+    public virtual void StopStateMachine()
     {
         m_IsRunning = false;
         m_StateMachineController.Stop();
         StopAllCoroutines();
     }
 
-    public AIBotState FindStateById(string stateId)
+    public virtual AIBotState FindStateById(string stateId)
     {
         return FindStateById<AIBotState>(stateId);
     }
@@ -128,7 +128,7 @@ public class AIBotController : MonoBehaviour
         return null;
     }
 
-    public void Initialize(AIBotController botController)
+    public virtual void Initialize(AIBotController botController)
     {
         if (m_AIProfile != null && m_NavMeshAgent != null)
         {
@@ -138,7 +138,7 @@ public class AIBotController : MonoBehaviour
         }
     }
 
-    public List<INavigationPoint> FindTargetsInRange()
+    public virtual List<INavigationPoint> FindTargetsInRange()
     {
         var targets = new List<INavigationPoint>();
         if (m_AIProfile == null)
@@ -156,7 +156,7 @@ public class AIBotController : MonoBehaviour
         return targets;
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         if (m_AIProfile != null && m_AIProfile.ShowDebugGizmos)
         {
