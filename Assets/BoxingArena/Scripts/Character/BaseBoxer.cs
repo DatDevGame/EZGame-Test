@@ -4,6 +4,7 @@ using HCore.Helpers;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
+using Premium.StateMachine;
 
 public abstract class BaseBoxer : MonoBehaviour, IAttackable
 {
@@ -75,6 +76,14 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
     {
         m_BoxStats = new BoxerStats();
         m_BoxStats.LoadStats(m_StatsSOData);
+    }
+    
+    /// <summary>
+    /// Get the current boxer stats
+    /// </summary>
+    public BoxerStats GetBoxerStats()
+    {
+        return m_BoxStats;
     }
 
     public virtual void Attack(IDamageable target)

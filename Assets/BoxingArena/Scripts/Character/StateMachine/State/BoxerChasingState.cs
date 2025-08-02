@@ -9,12 +9,12 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
-using Random = UnityEngine.Random;
+using DG.Tweening;
 
 [Serializable]
 public class BoxerChasingState : AIBotState
 {
-    protected BoxerAIBotController m_BoxerAIBotController;
+    [ShowInInspector] protected BoxerAIBotController m_BoxerAIBotController;
     protected Vector3 m_LastTargetPosition;
     protected float m_RepathThreshold = 0.2f;
     protected override void OnDrawGizmos()
@@ -24,16 +24,20 @@ public class BoxerChasingState : AIBotState
 
     protected override void OnStateEnable()
     {
-        base.OnStateEnable();
+        m_BoxerAIBotController.NavMeshAgent.isStopped = false;
+    }
+
+    protected override void OnStateDisable()
+    {
+        m_BoxerAIBotController.NavMeshAgent.isStopped = true;
     }
 
     protected override void OnStateUpdate()
     {
         base.OnStateUpdate();
-
         if (BotController.Target == null)
             return;
-        MoveTarget((m_BoxerAIBotController.Target as MonoBehaviour).transform);
+        MoveTarget(m_BoxerAIBotController.Target.GetSelfPoint());
     }
 
     public override void InitializeState(AIBotController botController)
@@ -41,32 +45,29 @@ public class BoxerChasingState : AIBotState
         if (botController is BoxerAIBotController boxerAIBotController)
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeState(botController);
-
-        Debug.Log($"InitializeState -> Chasing");
+        Debug.Log($"InitializeState -> BoxerChasingState");
     }
 
-    protected virtual void MoveTarget(Transform targetTransform)
+    protected virtual void MoveTarget(Vector3 targetPosition)
     {
-        Vector3 targetPosition = targetTransform.position;
-        if (Vector3.Distance(m_LastTargetPosition, targetPosition) > m_RepathThreshold)
+        if (m_LastTargetPosition != targetPosition)
         {
-            Debug.Log($"Chasing - B");
             m_LastTargetPosition = targetPosition;
+            m_BoxerAIBotController.transform.DOLookAt(targetPosition, 0.2f);
             m_BoxerAIBotController.NavMeshAgent.SetDestination(targetPosition);
         }
     }
 }
 
 [Serializable]
-public class BoxerChasingTargetToAttackTargetTransition : AIBotStateTransition
+public class BoxerChasingToAttackTransition : AIBotStateTransition
 {
     protected BoxerAIBotController m_BoxerAIBotController;
     private BoxerChasingState m_BoxerChasingState;
 
     protected override bool Decide()
     {
-        MonoBehaviour target = m_BoxerAIBotController.Target as MonoBehaviour;
-        return CheckAttackRange((m_BoxerAIBotController.Target as MonoBehaviour).transform);
+        return CheckAttackRange(m_BoxerAIBotController.Target.GetSelfPoint());
     }
 
     public override void InitializeTransition(AIBotState originState, AIBotController botController)
@@ -75,13 +76,14 @@ public class BoxerChasingTargetToAttackTargetTransition : AIBotStateTransition
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeTransition(originState, botController);
         m_BoxerChasingState = GetOriginStateAsType<BoxerChasingState>();
+        Debug.Log($"InitializeTransition -> BoxerChasingTargetToAttackTargetTransition");
     }
 
-    protected bool CheckAttackRange(Transform targetTransform)
+    protected bool CheckAttackRange(Vector3 vecTarget)
     {
-        Vector3 targetPosition = targetTransform.position;
-        float distanceToTarget = Vector3.Distance(m_BoxerAIBotController.transform.position, targetPosition);
-        return distanceToTarget <= m_BoxerAIBotController.BoxerAIProfile.DistanceChansingToAttack;
+        if (m_BoxerAIBotController == null) return false;
+        float distanceToTarget = Vector3.Distance(m_BoxerAIBotController.transform.position, vecTarget);
+        return distanceToTarget <= m_BoxerAIBotController.BoxerAIProfile.AttackRange;
     }
 
 }

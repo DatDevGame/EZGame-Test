@@ -32,38 +32,19 @@ public class BoxerIdleState : AIBotState
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeState(botController);
         m_BoxerAIBotController.Animator.SetTrigger(m_BoxerAIBotController.AnimationKeySO.Idle);
+        Debug.Log($"InitializeState -> BoxerIdleState");
     }
 }
 
 [Serializable]
-public class BoxerIdleToChasingTransition : AIBotStateTransition
+public class BoxerIdleToLookingTransition : AIBotStateTransition
 {
     protected BoxerAIBotController m_BoxerAIBotController;
     protected BoxerIdleState m_IdleTargetState;
-    protected float m_TimeFindEnemy;
+    protected float m_SearchDelay;
     protected override bool Decide()
     {
-        if (m_BoxerAIBotController != null)
-        {
-            List<INavigationPoint> navigationPoints = m_BoxerAIBotController.FindTargetsInRange();
-
-            if (navigationPoints.Count > 0)
-            {
-                m_BoxerAIBotController.Target = navigationPoints
-                    .Where(v => v != null)
-                    .OrderBy(point => Vector3.Distance(m_BoxerAIBotController.transform.position, (point as MonoBehaviour).transform.position))
-                    .FirstOrDefault();
-
-                if (m_BoxerAIBotController.Target != null && m_BoxerAIBotController.Target.IsAvailable())
-                    return true;
-            }
-        }
-
-        m_TimeFindEnemy -= Time.deltaTime;
-        if (m_TimeFindEnemy <= 0)
-            return true;
-
-        return false;
+        return true;
     }
 
     public override void InitializeTransition(AIBotState originState, AIBotController botController)
@@ -72,6 +53,6 @@ public class BoxerIdleToChasingTransition : AIBotStateTransition
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeTransition(originState, botController);
         m_IdleTargetState = GetOriginStateAsType<BoxerIdleState>();
-        m_TimeFindEnemy = m_BoxerAIBotController.BoxerAIProfile.TimeRandomChasingTarget;
+        Debug.Log($"InitializeTransition -> BoxerIdleToChasingTransition");
     }
 }
