@@ -35,7 +35,7 @@ public class BoxerChasingState : AIBotState
     protected override void OnStateUpdate()
     {
         base.OnStateUpdate();
-        if (BotController.Target == null)
+        if (m_BoxerAIBotController.Target == null)
             return;
         MoveTarget(m_BoxerAIBotController.Target.GetSelfPoint());
     }
@@ -50,7 +50,7 @@ public class BoxerChasingState : AIBotState
 
     protected virtual void MoveTarget(Vector3 targetPosition)
     {
-        if (m_LastTargetPosition != targetPosition)
+        if (m_LastTargetPosition != targetPosition && m_BoxerAIBotController.Target.GetBoxer().IsAlive)
         {
             m_LastTargetPosition = targetPosition;
             m_BoxerAIBotController.transform.DOLookAt(targetPosition, 0.2f);
@@ -83,7 +83,7 @@ public class BoxerChasingToAttackTransition : AIBotStateTransition
     {
         if (m_BoxerAIBotController == null) return false;
         float distanceToTarget = Vector3.Distance(m_BoxerAIBotController.transform.position, vecTarget);
-        return distanceToTarget <= m_BoxerAIBotController.BoxerAIProfile.AttackRange;
+        return distanceToTarget <= m_BoxerAIBotController.Boxer.BoxerStats.AttackRange;
     }
 
 }

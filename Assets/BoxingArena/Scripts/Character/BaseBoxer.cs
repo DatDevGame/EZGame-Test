@@ -1,23 +1,28 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
+using FIMSpace.FProceduralAnimation;
 using HCore.Helpers;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
-using Premium.StateMachine;
 
-public abstract class BaseBoxer : MonoBehaviour, IAttackable
+public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
 {
+    public Action OnDead = delegate { };
+    public BoxerAnimationEventReceiver BoxerAnimationEventReceiver => m_BoxerAnimationEventReceiver;
+    public Animator Animator => m_Animator;
+    public BoxerStats BoxerStats => m_BoxStats;
+    public StatsSO StatsSOData => m_StatsSOData;
+    public AnimationKeySO AnimationKeySO => m_AnimationKeySO;
+    [ShowInInspector]public bool IsAlive => m_IsAlive;
+
+    [SerializeField, BoxGroup("References")] protected BoxerAnimationEventReceiver m_BoxerAnimationEventReceiver;
     [SerializeField, BoxGroup("References")] protected Animator m_Animator;
-    [SerializeField, BoxGroup("References")] protected Transform m_LeftHitBox;
-    [SerializeField, BoxGroup("References")] protected Transform m_RightHitBox;
-    [SerializeField, BoxGroup("References")] protected Transform m_FootstepPointL;
-    [SerializeField, BoxGroup("References")] protected Transform m_FootstepPointR;
+    [SerializeField, BoxGroup("References")] protected LegsAnimator m_LegsAnimator;
     [SerializeField, BoxGroup("Data")] protected StatsSO m_StatsSOData;
-    [SerializeField, BoxGroup("Data")] protected WeakPointSO m_WeakPointSO;
-
+    [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
     [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
-
     protected bool m_IsAlive = true;
 
     protected virtual void Start()
@@ -26,50 +31,10 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
     }
     protected virtual void Init()
     {
-        if (m_Animator == null)
-            m_Animator = gameObject.GetOrAddComponent<Animator>();
-        if (m_Animator != null)
-        {
-            m_LeftHitBox = m_Animator.GetBoneTransform(HumanBodyBones.LeftHand);
-            m_RightHitBox = m_Animator.GetBoneTransform(HumanBodyBones.RightHand);
-            m_FootstepPointL = m_Animator.GetBoneTransform(HumanBodyBones.LeftFoot);
-            m_FootstepPointR = m_Animator.GetBoneTransform(HumanBodyBones.RightFoot);
-            SetUpWeakPoint();
-        }
+        if (m_BoxerAnimationEventReceiver == null && m_Animator != null)
+            m_BoxerAnimationEventReceiver = m_Animator.GetComponent<BoxerAnimationEventReceiver>();
+
         UpdateStatus();
-    }
-
-    private void SetUpWeakPoint()
-    {
-        WeakPoint[] weakPoints = GetComponentsInChildren<WeakPoint>();
-        foreach (var weakPoint in weakPoints)
-        {
-            if (weakPoint == null) continue;
-
-            weakPoint.Load(this);
-            Transform parentBone = GetBoneTransformForWeakPoint(weakPoint.WeakPointType);
-            if (parentBone != null)
-            {
-                weakPoint.transform.SetParent(parentBone);
-                weakPoint.transform.localPosition = Vector3.zero;
-                weakPoint.transform.eulerAngles = Vector3.zero;
-            }
-        }
-
-        Transform GetBoneTransformForWeakPoint(WeakPointType type)
-        {
-            switch (type)
-            {
-                case WeakPointType.Head:
-                    return m_Animator.GetBoneTransform(HumanBodyBones.Head);
-                case WeakPointType.Body:
-                    return m_Animator.GetBoneTransform(HumanBodyBones.Spine);
-                case WeakPointType.Chest:
-                    return m_Animator.GetBoneTransform(HumanBodyBones.Chest);
-                default:
-                    return null;
-            }
-        }
     }
 
     protected virtual void UpdateStatus()
@@ -77,42 +42,27 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
         m_BoxStats = new BoxerStats();
         m_BoxStats.LoadStats(m_StatsSOData);
     }
-    
-    /// <summary>
-    /// Get the current boxer stats
-    /// </summary>
-    public BoxerStats GetBoxerStats()
-    {
-        return m_BoxStats;
-    }
 
     public virtual void Attack(IDamageable target)
     {
         if (!m_IsAlive || target == null) return;
 
         float finalDamage = m_BoxStats.AttackDamage;
-        if (Random.value < m_BoxStats.CriticalChance)
+        if (UnityEngine.Random.value < m_BoxStats.CriticalChance)
             finalDamage *= m_BoxStats.CriticalMultiplier;
 
         target.TakeDamage(finalDamage);
     }
 
-    public virtual void TakeDamage(WeakPointType weakPointType, float amount)
+    public virtual void TakeDamage(float amount)
     {
         if (!m_IsAlive) return;
         if (TryTakeDamage()) return;
-
-        var damageInfo = new DamageInfo(
-            amount * m_WeakPointSO.GetMultiplier(weakPointType),
-            weakPointType
-        );
-        HandleDamage(damageInfo);
+        HandleDamage(amount);
     }
-
-
     protected virtual bool TryTakeDamage()
     {
-        float roll = Random.Range(0f, 1f);
+        float roll = UnityEngine.Random.Range(0f, 1f);
 
         if (roll < m_BoxStats.BlockChance)
         {
@@ -121,15 +71,20 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
         }
         return false;
     }
-    protected virtual void HandleDamage(DamageInfo damageInfo)
+    protected virtual void HandleDamage(float damage)
     {
-        float finalDamage = damageInfo.Amount;
-        if (Random.value < m_BoxStats.CriticalChance)
+        float finalDamage = damage;
+        if (UnityEngine.Random.value < m_BoxStats.CriticalChance)
             finalDamage *= m_BoxStats.CriticalMultiplier;
 
         ApplyDamage(finalDamage);
         if (m_BoxStats.Health <= 0)
             Die();
+        else
+        {
+            int roll = UnityEngine.Random.Range(0 , 2);
+            m_Animator?.SetTrigger(roll == 0 ? m_AnimationKeySO.Hit_1 : m_AnimationKeySO.Hit_2);
+        }
     }
 
     protected virtual void ApplyDamage(float incomingDamage)
@@ -140,10 +95,10 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable
     protected virtual void Die()
     {
         m_IsAlive = false;
-        m_Animator?.SetTrigger("KO");
-        Debug.Log($"{name} is KO!");
+        m_LegsAnimator.enabled = false;
+        m_Animator?.SetTrigger(m_AnimationKeySO.Dead);
+        OnDead?.Invoke();
     }
-
 
 #if UNITY_EDITOR
     [Button]

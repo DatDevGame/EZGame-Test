@@ -10,17 +10,16 @@ using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 [Serializable]
 public class BoxerAttackingState : AIBotState
 {
     protected BoxerAIBotController m_BoxerAIBotController;
     protected float m_TriggerTimer;
-    protected override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-    }
-
+    protected float m_ForwardDistance = 0.8f;
+    protected const float LOOK_AT_DURATION = 0.2F;
+    protected IDamageable m_Target;
     protected override void OnStateEnable()
     {
         base.OnStateEnable();
@@ -28,12 +27,21 @@ public class BoxerAttackingState : AIBotState
 
     protected override void OnStateUpdate()
     {
-        base.OnStateUpdate();
-
-        if (BotController.Target == null)
+        if (m_BoxerAIBotController.Target == null)
             return;
 
-        m_BoxerAIBotController.BotTransform.DOLookAt(m_BoxerAIBotController.Target.GetSelfPoint(), 0.2f);
+        float distanceTarget = Vector3.Distance(m_BoxerAIBotController.BotTransform.position, m_BoxerAIBotController.Target.GetSelfPoint());
+        bool isTooClose = distanceTarget < m_BoxerAIBotController.BoxerAIProfile?.AttackRange * 0.95f;
+
+        if (isTooClose)
+        {
+            Vector3 dirAway = (m_BoxerAIBotController.BotTransform.position - m_BoxerAIBotController.Target.GetSelfPoint()).normalized;
+            float retreatSpeed = 0.2f;
+            Vector3 retreatVelocity = dirAway * retreatSpeed;
+            m_BoxerAIBotController.CharacterController.Move(retreatVelocity * Time.deltaTime);
+        }
+
+        m_BoxerAIBotController.BotTransform.DOLookAt(m_BoxerAIBotController.Target.GetSelfPoint(), LOOK_AT_DURATION);
         m_TriggerTimer -= Time.deltaTime;
         if (m_TriggerTimer <= 0)
             PerformAttack();
@@ -41,8 +49,36 @@ public class BoxerAttackingState : AIBotState
 
     private void PerformAttack()
     {
-        Debug.Log($"AI Bot attacking target at {BotController.Target.GetTargetPoint()}");
-        m_TriggerTimer = m_BoxerAIBotController.BoxerAIProfile.AttackCoolDown;
+        string keyAttackType = UnityEngine.Random.Range(0, 3) <= 0 ? m_BoxerAIBotController.AnimationKeySO.HeadAttack : m_BoxerAIBotController.AnimationKeySO.BodyAttack;
+        m_BoxerAIBotController.Animator.SetTrigger(keyAttackType);
+
+        float animationLength = 0f;
+        AnimatorStateInfo stateInfo = m_BoxerAIBotController.Animator.GetCurrentAnimatorStateInfo(0);
+        animationLength = stateInfo.length / Mathf.Max(stateInfo.speed, 0.01f);
+
+        m_TriggerTimer = m_BoxerAIBotController.Boxer.BoxerStats.AttackCoolDown + animationLength;
+        LayerMask targetLayer = m_BoxerAIBotController.Boxer.BoxerStats.TeamLayerMask;
+
+        Vector3 origin = m_BoxerAIBotController.transform.position + Vector3.up * 0.5f;
+        Vector3 direction = m_BoxerAIBotController.transform.forward * m_ForwardDistance;
+        float attackRange = m_ForwardDistance;
+
+#if UNITY_EDITOR
+        Debug.DrawLine(origin, origin + direction * attackRange, Color.cyan, 1.0f);
+#endif
+
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, attackRange, targetLayer))
+        {
+            IDamageable target = hit.collider.GetComponent<IDamageable>();
+            if (target != null && hit.collider.gameObject.layer != m_BoxerAIBotController.gameObject.layer)
+                m_Target = target;
+        }
+    }
+
+    //Call In Animation
+    public void HandleAttackHit()
+    {
+        m_Target.TakeDamage(m_BoxerAIBotController.Boxer.BoxerStats.AttackDamage);
     }
 
     public override void InitializeState(AIBotController botController)
@@ -50,7 +86,6 @@ public class BoxerAttackingState : AIBotState
         if (botController is BoxerAIBotController boxerAIBotController)
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeState(botController);
-        m_TriggerTimer = m_BoxerAIBotController.BoxerAIProfile.AttackCoolDown;
         Debug.Log($"InitializeState -> BoxerAttackingState");
     }
 }
@@ -63,12 +98,13 @@ public class BoxerAttackingToLookTransition : AIBotStateTransition
     protected override bool Decide()
     {
         //Condition Transition In Here
-        if (botController.Target == null)
+        if (m_BoxerAIBotController.Target == null)
             return false;
+        if (!m_BoxerAIBotController.Target.GetBoxer().IsAlive)
+            return true;
 
-        float distanceToTarget = Vector3.Distance(botController.BotTransform.position, botController.Target.GetSelfPoint());
-        bool isOutRangeAttack = distanceToTarget > m_BoxerAIBotController.BoxerAIProfile?.AttackRange;
-        Debug.Log($"{botController.BotTransform.name} Attack -> isOutRangeAttack: {isOutRangeAttack} | distanceToTarget: {distanceToTarget}");
+        float distanceToTarget = Vector3.Distance(m_BoxerAIBotController.BotTransform.position, m_BoxerAIBotController.Target.GetSelfPoint());
+        bool isOutRangeAttack = distanceToTarget > m_BoxerAIBotController.Boxer.BoxerStats.AttackRange;
         return isOutRangeAttack;
     }
 

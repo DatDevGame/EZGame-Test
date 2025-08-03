@@ -1,20 +1,26 @@
+using UnityEngine;
+
 [System.Serializable]
 public class BoxerStats
 {
+    public LayerMask TeamLayerMask;
     public float Health;
     public float AttackDamage;
-    public float AttackSpeed;
-    public float BlockChance;
+    public float AttackRange;
+    public float AttackCoolDown;
     public float MoveSpeed;
     public float CriticalChance;
     public float CriticalMultiplier;
     public float Aggression;
+    public float BlockChance;
 
     public void LoadStats(StatsSO statsSO)
     {
+        TeamLayerMask = statsSO.TeamLayerMask;
         Health = statsSO.MaxHealth;
         AttackDamage = statsSO.AttackDamage;
-        AttackSpeed = statsSO.AttackSpeed;
+        AttackRange = statsSO.AttackRange;
+        AttackCoolDown = statsSO.AttackCoolDown;
         BlockChance = statsSO.BlockChance;
         MoveSpeed = statsSO.MoveSpeed;
         CriticalChance = statsSO.CriticalChance;

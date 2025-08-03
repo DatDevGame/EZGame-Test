@@ -11,27 +11,11 @@ using UnityEngine;
 public class BoxerIdleState : AIBotState
 {
     protected BoxerAIBotController m_BoxerAIBotController;
-    protected override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-    }
-
-    protected override void OnStateEnable()
-    {
-        base.OnStateEnable();
-    }
-
-    protected override void OnStateUpdate()
-    {
-        base.OnStateUpdate();
-    }
-
     public override void InitializeState(AIBotController botController)
     {
         if (botController is BoxerAIBotController boxerAIBotController)
             m_BoxerAIBotController = boxerAIBotController;
         base.InitializeState(botController);
-        m_BoxerAIBotController.Animator.SetTrigger(m_BoxerAIBotController.AnimationKeySO.Idle);
         Debug.Log($"InitializeState -> BoxerIdleState");
     }
 }

@@ -21,17 +21,18 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  DetectionRange: 7
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 439
+    m_Bits: 192
   ObstacleLayerMask:
     serializedVersion: 2
-    m_Bits: 439
-  DetectionRange: 3.52
-  AttackRange: 2.19
-  m_TimeRandomChasingTarget: {x: 0.5, y: 1}
-  DistanceChansingToAttack: 2
-  MoveSpeed: 3
+    m_Bits: 0
+  m_TimeRandomChasingTarget: {x: 0.5, y: 1.5}
+  MoveSpeed: 1
   RotationSpeed: 2
+  ReachThreshold: 0.1
+  AttackRange: 0.8
+  AttackCoolDown: 3
   m_ShowDebugGizmos: 1
   m_DebugColor: {r: 1, g: 0, b: 0, a: 1}

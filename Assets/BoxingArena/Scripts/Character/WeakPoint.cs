@@ -17,7 +17,7 @@ public class WeakPoint : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         if (m_Boxer == null) return;
-        m_Boxer.TakeDamage(m_WeakPointType, amount);
+        //m_Boxer.TakeDamage(m_WeakPointType, amount);
     }
 
     public void Load(BaseBoxer baseBoxer)

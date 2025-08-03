@@ -4,6 +4,10 @@ using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using JetBrains.Annotations;
+using Premium.PoolManagement;
+
+
 
 
 #if UNITY_EDITOR
@@ -12,18 +16,30 @@ using UnityEditor;
 
 public class BoxerAIBotController : AIBotController, INavigationPoint
 {
+    public bool IsRunning => m_IsRunning;
+    public BaseBoxer Boxer => m_Boxer;
+    public CharacterController CharacterController => m_CharacterController;
     public Animator Animator => m_Animator;
     public BoxerAIProfile BoxerAIProfile => m_BoxerAIProfile;
     public AnimationKeySO AnimationKeySO => m_AnimationKeySO;
-    [SerializeField, BoxGroup("Reference")] protected Animator m_Animator;
-    [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
+
+    [SerializeField, BoxGroup("Reference")] protected BaseBoxer m_Boxer;
+    [SerializeField, BoxGroup("Reference")] protected CharacterController m_CharacterController;
+
     private BoxerAIProfile m_BoxerAIProfile;
+    private Animator m_Animator;
+    private AnimationKeySO m_AnimationKeySO;
 
     protected override void Awake()
     {
         base.Awake();
         if (m_AIProfile is BoxerAIProfile boxerAIProfile)
             m_BoxerAIProfile = boxerAIProfile;
+        if (m_Animator == null)
+            m_Animator = m_Boxer.Animator;
+        if (m_AnimationKeySO == null)
+            m_AnimationKeySO = m_Boxer.AnimationKeySO;
+        m_Boxer.OnDead += OnDead;
 
         if (m_NavMeshAgent != null)
         {
@@ -32,8 +48,14 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
             m_NavMeshAgent.stoppingDistance = m_BoxerAIProfile.ReachThreshold;
         }
     }
-    public override void Initialize(AIBotController botController)
+    public override void InitializeStateMachine()
     {
+        base.InitializeStateMachine();
+        foreach (var state in m_States)
+        {
+            if (state is BoxerAttackingState boxerAttacking && m_Boxer.BoxerAnimationEventReceiver != null)
+                m_Boxer.BoxerAnimationEventReceiver.SetAttackingState(boxerAttacking);
+        }
 
     }
     public override List<INavigationPoint> FindTargetsInRange()
@@ -56,15 +78,9 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         }
         return targets;
     }
-
     public bool IsAvailable()
     {
         return m_IsRunning;
-    }
-
-    public bool IsRobotReached(AIBotController botController)
-    {
-        return FindTargetsInRange().Count > 0;
     }
     public PointType GetPointType()
     {
@@ -78,7 +94,14 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
     {
         return m_Target.GetSelfPoint();
     }
-
+    public BaseBoxer GetBoxer()
+    {
+        return m_Boxer;
+    }
+    protected void OnDead()
+    {
+        StopStateMachine();
+    }
     protected override void OnDrawGizmosSelected()
     {
 #if UNITY_EDITOR
@@ -101,13 +124,12 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         Handles.color = detectionFill;
         Handles.DrawSolidDisc(center, Vector3.up, detectionRadius);
 
-        // Đặt label ngay **rìa dưới vòng tròn detection**
         Vector3 detectionLabelPos = center + new Vector3(0, 0.01f, -detectionRadius + 0.2f);
         Handles.color = Color.white;
         Handles.Label(detectionLabelPos, $"Detection Range: {detectionRadius}", style);
 
         // === ATTACK RANGE ===
-        float attackRadius = m_GizMosBoxerAIProfile.AttackRange;
+        float attackRadius = Boxer.StatsSOData.AttackRange;
         Gizmos.color = Color.yellow;
         DrawCircleXZ(center, attackRadius, 64);
 
@@ -115,7 +137,6 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         Handles.color = attackFill;
         Handles.DrawSolidDisc(center, Vector3.up, attackRadius);
 
-        // Đặt label ngay **rìa dưới vòng tròn attack**
         Vector3 attackLabelPos = center + new Vector3(0, 0.01f, -attackRadius + 0.2f);
         Handles.color = Color.yellow;
         Handles.Label(attackLabelPos, $"Attack Range: {attackRadius}", style);

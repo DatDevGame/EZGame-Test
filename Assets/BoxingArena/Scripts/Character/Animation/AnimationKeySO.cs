@@ -7,5 +7,9 @@ public class AnimationKeySO : SerializableScriptableObject
 {
     public string Idle = "Idle";
     public string Chasing = "Chasing";
-    public string Attack = "Attack";
+    public string HeadAttack = "HeadAttack";
+    public string BodyAttack = "BodyAttack";
+    public string Hit_1 = "Hit_1";
+    public string Hit_2 = "Hit_2";
+    public string Dead = "Dead";
 }

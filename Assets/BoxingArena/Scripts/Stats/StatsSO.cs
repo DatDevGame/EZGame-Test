@@ -4,27 +4,23 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "StatsSO", menuName = "BoxingArena/StatsSO", order = 0)]
 public class StatsSO : SerializableScriptableObject
 {
-    [SerializeField, BoxGroup("Combat Stats")] private float m_MaxHealth = 100f;
-    [SerializeField, BoxGroup("Combat Stats")] private float m_AttackDamage = 15f;
-    [SerializeField, BoxGroup("Combat Stats")] private float m_AttackSpeed = 1.2f;
-    [SerializeField, BoxGroup("Combat Stats")] private float m_BlockChance = 0.2f;
-    [SerializeField, BoxGroup("Combat Stats")] private float m_MoveSpeed = 3.5f;
+    [SerializeField, BoxGroup("Combat Stats")] public float MaxHealth = 100f;
+    [SerializeField, BoxGroup("Combat Stats")] public float BlockChance = 0.2f;
+    [SerializeField, BoxGroup("Combat Stats")] public float CriticalChance = 0.1f;
+    [SerializeField, BoxGroup("Combat Stats")] public float CriticalMultiplier = 2f;
+    [SerializeField, BoxGroup("Combat Stats")] public LayerMask TeamLayerMask = -1;
 
-    [SerializeField, BoxGroup("Special")] private float m_CriticalChance = 0.1f;
-    [SerializeField, BoxGroup("Special")] private float m_CriticalMultiplier = 2f;
+    [Title("Move State Config", "", TitleAlignments.Centered)]
+    [Range(0.1f, 5f)]
+    public float MoveSpeed = 3.5f;
+
+    [Title("Attack State Config", "", TitleAlignments.Centered)]
+    public float AttackDamage = 15f;
+    public float AttackRange = 0.5f;
+    public float AttackCoolDown = 1f;
 
     [SerializeField, BoxGroup("AI Behavior")] private float m_Aggression = 0.5f;
     [SerializeField, BoxGroup("AI Behavior")] private float m_ReactionTime = 0.3f;
-
-    // Public properties
-    public float MaxHealth => m_MaxHealth;
-    public float AttackDamage => m_AttackDamage;
-    public float AttackSpeed => m_AttackSpeed;
-    public float BlockChance => m_BlockChance;
-    public float MoveSpeed => m_MoveSpeed;
-
-    public float CriticalChance => m_CriticalChance;
-    public float CriticalMultiplier => m_CriticalMultiplier;
 
     public float Aggression => m_Aggression;
     public float ReactionTime => m_ReactionTime;

@@ -14,7 +14,9 @@ public enum PointType
 public interface INavigationPoint
 {
     public bool IsAvailable();
-    public bool IsRobotReached(AIBotController botController);
+    //Temp
+    public BaseBoxer GetBoxer();
     public PointType GetPointType();
+    public Vector3 GetSelfPoint();
     public Vector3 GetTargetPoint();
 }

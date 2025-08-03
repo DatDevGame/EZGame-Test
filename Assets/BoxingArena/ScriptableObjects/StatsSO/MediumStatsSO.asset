@@ -12,13 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc3a0aea40dc8ff4998a67ed80bd3cc0, type: 3}
   m_Name: MediumStatsSO
   m_EditorClassIdentifier: 
-  m_guid: 
-  m_MaxHealth: 100
-  m_AttackDamage: 15
-  m_AttackSpeed: 1.2
-  m_BlockChance: 0.2
-  m_MoveSpeed: 3.5
-  m_CriticalChance: 0.1
-  m_CriticalMultiplier: 2
+  m_guid: 73bb3935f8755a94ebe1b6ad7f30a1f4
+  MaxHealth: 100
+  BlockChance: 0.2
+  CriticalChance: 0.1
+  CriticalMultiplier: 2
+  TeamLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
+  MoveSpeed: 3.5
+  AttackDamage: 15
+  AttackRange: 0.5
+  AttackCoolDown: 1
   m_Aggression: 0.5
   m_ReactionTime: 0.3
