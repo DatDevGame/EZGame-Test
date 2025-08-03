@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class BoxerAnimationEventReceiver : MonoBehaviour
 {
-    [ShowInInspector]private BoxerAttackingState m_AttackingState;
+    protected BoxerAttackingState m_AttackingState;
 
-    public void SetAttackingState(BoxerAttackingState state)
+    public virtual void SetAttackingState(BoxerAttackingState state)
     {
         m_AttackingState = state;
     }
 
-    public void OnAttackHit()
+    public virtual void OnAttackHit()
     {
         m_AttackingState?.HandleAttackHit();
     }

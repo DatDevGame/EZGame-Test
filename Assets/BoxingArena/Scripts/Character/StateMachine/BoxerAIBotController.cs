@@ -43,7 +43,7 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
 
         if (m_NavMeshAgent != null)
         {
-            m_NavMeshAgent.speed = m_BoxerAIProfile.MoveSpeed;
+            m_NavMeshAgent.speed = m_Boxer.StatsSOData.MoveSpeed;
             m_NavMeshAgent.angularSpeed = m_BoxerAIProfile.RotationSpeed * 100f;
             m_NavMeshAgent.stoppingDistance = m_BoxerAIProfile.ReachThreshold;
         }
@@ -64,7 +64,7 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         if (m_AIProfile == null)
             return targets;
 
-        var colliders = Physics.OverlapSphere(m_BotTransform.position, m_BoxerAIProfile.DetectionRange, m_BoxerAIProfile.TargetLayerMask);
+        var colliders = Physics.OverlapSphere(m_BotTransform.position, m_Boxer.StatsSOData.DetectionRange, m_Boxer.BoxerStats.TeamLayerMask);
         foreach (var collider in colliders)
         {
             if (collider.gameObject.layer == gameObject.layer)
@@ -92,7 +92,7 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
     }
     public Vector3 GetTargetPoint()
     {
-        return m_Target.GetSelfPoint();
+        return m_Target == null ? Vector3.zero : m_Target.GetSelfPoint();
     }
     public BaseBoxer GetBoxer()
     {
@@ -105,7 +105,7 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
     protected override void OnDrawGizmosSelected()
     {
 #if UNITY_EDITOR
-        BoxerAIProfile m_GizMosBoxerAIProfile = AIProfile as BoxerAIProfile;
+        StatsSO m_GizMosBoxerAIProfile = m_Boxer.StatsSOData;
         if (m_GizMosBoxerAIProfile == null) return;
 
         Vector3 center = transform.position + (Vector3.up * 0.1f);
@@ -140,10 +140,7 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         Vector3 attackLabelPos = center + new Vector3(0, 0.01f, -attackRadius + 0.2f);
         Handles.color = Color.yellow;
         Handles.Label(attackLabelPos, $"Attack Range: {attackRadius}", style);
-#endif
     }
-
-
     private void DrawCircleXZ(Vector3 center, float radius, int segments)
     {
         float angleStep = 360f / segments;
@@ -158,4 +155,5 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
             prevPoint = nextPoint;
         }
     }
+#endif
 }

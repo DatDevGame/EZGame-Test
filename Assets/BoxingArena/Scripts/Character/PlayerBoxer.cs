@@ -1,0 +1,216 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+public class PlayerBoxer : BaseBoxer, INavigationPoint
+{
+    protected float m_TriggerTimer;
+    protected float m_ForwardDistance = 0.8f;
+    protected bool m_IsLooking = false;
+
+    protected PlayerBoxerAnimationEventReceiver m_PlayerBoxerAnimationEventReceiver;
+    protected IDamageable m_TargetDamagable;
+    protected INavigationPoint m_TargetNavigationPoint;
+    protected virtual void Awake()
+    {
+        if (m_BoxerAnimationEventReceiver is PlayerBoxerAnimationEventReceiver playerBoxerAnimationEventReceiver)
+        {
+            m_PlayerBoxerAnimationEventReceiver = playerBoxerAnimationEventReceiver;
+            m_PlayerBoxerAnimationEventReceiver.SetPlayerBoxer(this);
+        }
+    }
+
+    protected virtual void Update()
+    {
+        DetectEnemy();
+        LookAtTarget();
+        OnUpdateAttack();
+    }
+
+    protected virtual void DetectEnemy()
+    {
+        List<INavigationPoint> navigations = FindTargetsInRange();
+        if (navigations.Count > 0)
+        {
+            INavigationPoint nearestTarget = navigations
+                .Where(v => v != null)
+                .OrderBy(v => Vector3.Distance(transform.position, v.GetSelfPoint()))
+                .FirstOrDefault();
+
+            m_TargetNavigationPoint = nearestTarget;
+        }
+    }
+
+    protected virtual void LookAtTarget()
+    {
+        if (m_TargetNavigationPoint != null)
+        {
+            float attackRange = Vector3.Distance(transform.position, m_TargetNavigationPoint.GetSelfPoint());
+            if (attackRange < m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange)
+            {
+                m_IsLooking = true;
+                transform.DOLookAt(m_TargetNavigationPoint.GetSelfPoint(), m_StatsSOData.LookAtDuration);
+            }
+            else
+            {
+                m_IsLooking = false;
+            }
+
+        }
+    }
+
+    protected virtual void Attack()
+    {
+
+    }
+
+    protected void OnUpdateAttack()
+    {
+        if (m_TargetNavigationPoint == null || !m_IsLooking)
+            return;
+        m_TriggerTimer -= Time.deltaTime;
+        float distanceAttack = Vector3.Distance(transform.position, m_TargetNavigationPoint.GetSelfPoint());
+        if (distanceAttack > m_BoxStats.AttackRange)
+            return;
+
+        Vector3 origin = transform.position + Vector3.up * 0.5f;
+        Vector3 direction = transform.forward * m_ForwardDistance;
+        float attackRange = m_ForwardDistance;
+
+#if UNITY_EDITOR
+        Debug.DrawLine(origin, origin + direction * attackRange, Color.cyan, 1.0f);
+#endif
+        LayerMask targetLayer = m_BoxStats.TeamLayerMask;
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, attackRange, targetLayer))
+        {
+            IDamageable target = hit.collider.GetComponent<IDamageable>();
+            if (target != null && hit.collider.gameObject.layer != gameObject.layer)
+                m_TargetDamagable = target;
+        }
+
+        if (m_TriggerTimer <= 0)
+            PerformAttack();
+    }
+    private void PerformAttack()
+    {
+        string keyAttackType = UnityEngine.Random.Range(0, 1) <= 0 ? m_AnimationKeySO.HeadAttack : m_AnimationKeySO.BodyAttack;
+        m_Animator.SetTrigger(keyAttackType);
+        float animationLength = 0f;
+        AnimatorStateInfo stateInfo = m_Animator.GetCurrentAnimatorStateInfo(0);
+        animationLength = stateInfo.length / m_AnimationKeySO.DivineAnimSpeedAttack;
+        m_TriggerTimer = m_BoxStats.AttackCoolDown + animationLength;
+    }
+
+    //Call In Animation
+    public void HandleAttackHit()
+    {
+        if (m_TargetDamagable != null && m_TargetNavigationPoint != null)
+        {
+            float distanceAttack = Vector3.Distance(transform.position, m_TargetNavigationPoint.GetSelfPoint());
+            if (distanceAttack <= m_BoxStats.AttackRange)
+            {
+                HapticManager.Instance.PlayFlashHaptic();
+                CameraShake.Instance.Shake(0.05f, 0.2f);
+                m_TargetDamagable.TakeDamage(m_BoxStats.AttackDamage);
+            }
+        }
+    }
+    protected List<INavigationPoint> FindTargetsInRange()
+    {
+        var targets = new List<INavigationPoint>();
+        var colliders = Physics.OverlapSphere(transform.position, m_StatsSOData.DetectionRange, m_StatsSOData.TeamLayerMask);
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.layer == gameObject.layer)
+                continue;
+
+            var navPoint = collider.GetComponent<INavigationPoint>();
+            if (navPoint != null && navPoint.IsAvailable())
+            {
+                targets.Add(navPoint);
+            }
+        }
+        return targets;
+    }
+
+    public bool IsAvailable()
+    {
+        return m_IsAlive;
+    }
+
+    public BaseBoxer GetBoxer()
+    {
+        return this;
+    }
+
+    public PointType GetPointType()
+    {
+        return PointType.OpponentPoint;
+    }
+
+    public Vector3 GetSelfPoint()
+    {
+        return transform.position;
+    }
+
+    public Vector3 GetTargetPoint()
+    {
+        return m_TargetNavigationPoint.GetSelfPoint();
+    }
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (m_StatsSOData == null) return;
+
+        GUIStyle style = new GUIStyle();
+        style.normal.textColor = Color.white;
+        style.alignment = TextAnchor.MiddleCenter;
+        style.fontStyle = FontStyle.Bold;
+
+        Vector3 center = transform.position + Vector3.up * 0.01f;
+
+        // Detection Range
+        DrawCircleXZ(center, m_StatsSOData.DetectionRange, 64, Color.magenta);
+        Vector3 detectionLabelPos = center + new Vector3(0, 0.01f, -m_StatsSOData.DetectionRange + 0.2f);
+        Handles.color = Color.white;
+        Handles.Label(detectionLabelPos, $"Detection Range: {m_StatsSOData.DetectionRange}", style);
+
+        // LookAt Range = AttackRange * 1.5f
+        float lookAtRange = m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange;
+        DrawCircleXZ(center, lookAtRange, 64, Color.yellow);
+        Vector3 detectionLabelPos2 = center + new Vector3(0, 0.01f, -(m_StatsSOData.AttackRange * 1.5f) + 0.2f);
+        Handles.color = Color.white;
+        Handles.Label(detectionLabelPos2, $"LookAt Range: {m_StatsSOData.AttackRange * 1.5f}", style);
+
+        // Attack Range
+        DrawCircleXZ(center, m_StatsSOData.AttackRange, 64, Color.red);
+        Vector3 detectionLabelPos3 = center + new Vector3(0, 0.01f, -m_StatsSOData.AttackRange + 0.2f);
+        Handles.color = Color.white;
+        Handles.Label(detectionLabelPos3, $"Attack Range: {m_StatsSOData.AttackRange}", style);
+    }
+
+    private void DrawCircleXZ(Vector3 center, float radius, int segments, Color color)
+    {
+        Gizmos.color = color;
+        float angleStep = 360f / segments;
+        Vector3 prevPoint = center + new Vector3(Mathf.Cos(0f), 0f, Mathf.Sin(0f)) * radius;
+
+        for (int i = 1; i <= segments; i++)
+        {
+            float rad = Mathf.Deg2Rad * angleStep * i;
+            Vector3 nextPoint = center + new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
+            Gizmos.DrawLine(prevPoint, nextPoint);
+            prevPoint = nextPoint;
+        }
+    }
+#endif
+
+
+}

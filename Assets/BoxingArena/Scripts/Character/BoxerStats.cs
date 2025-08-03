@@ -11,7 +11,6 @@ public class BoxerStats
     public float MoveSpeed;
     public float CriticalChance;
     public float CriticalMultiplier;
-    public float Aggression;
     public float BlockChance;
 
     public void LoadStats(StatsSO statsSO)
@@ -25,6 +24,5 @@ public class BoxerStats
         MoveSpeed = statsSO.MoveSpeed;
         CriticalChance = statsSO.CriticalChance;
         CriticalMultiplier = statsSO.CriticalMultiplier;
-        Aggression = statsSO.Aggression;
     }
 }

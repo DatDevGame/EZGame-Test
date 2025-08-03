@@ -11,13 +11,16 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
 {
     public Action OnDead = delegate { };
     public BoxerAnimationEventReceiver BoxerAnimationEventReceiver => m_BoxerAnimationEventReceiver;
+    public CharacterController CharacterController => m_CharacterController;
     public Animator Animator => m_Animator;
     public BoxerStats BoxerStats => m_BoxStats;
     public StatsSO StatsSOData => m_StatsSOData;
     public AnimationKeySO AnimationKeySO => m_AnimationKeySO;
-    [ShowInInspector]public bool IsAlive => m_IsAlive;
+    [ShowInInspector] public bool IsAlive => m_IsAlive;
 
+    [SerializeField, BoxGroup("Config")] protected LegsAnimator.PelvisImpulseSettings m_BlockHit;
     [SerializeField, BoxGroup("References")] protected BoxerAnimationEventReceiver m_BoxerAnimationEventReceiver;
+    [SerializeField, BoxGroup("References")] protected CharacterController m_CharacterController;
     [SerializeField, BoxGroup("References")] protected Animator m_Animator;
     [SerializeField, BoxGroup("References")] protected LegsAnimator m_LegsAnimator;
     [SerializeField, BoxGroup("Data")] protected StatsSO m_StatsSOData;
@@ -66,7 +69,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
 
         if (roll < m_BoxStats.BlockChance)
         {
-            Debug.Log("Blocked the punch!");
+            m_LegsAnimator.User_AddImpulse(m_BlockHit);
             return true;
         }
         return false;
@@ -82,7 +85,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
             Die();
         else
         {
-            int roll = UnityEngine.Random.Range(0 , 2);
+            int roll = UnityEngine.Random.Range(0, 2);
             m_Animator?.SetTrigger(roll == 0 ? m_AnimationKeySO.Hit_1 : m_AnimationKeySO.Hit_2);
         }
     }
@@ -105,6 +108,11 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     private void Load()
     {
         Init();
+    }
+    [Button]
+    public void PushTest()
+    {
+        m_LegsAnimator.User_AddImpulse(m_BlockHit);
     }
 #endif
 }

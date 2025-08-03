@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: MediumStatsSO
   m_EditorClassIdentifier: 
   m_guid: 73bb3935f8755a94ebe1b6ad7f30a1f4
+  LookAtDuration: 0.2
   MaxHealth: 100
-  BlockChance: 0.2
-  CriticalChance: 0.1
+  DetectionRange: 100
+  BlockChance: 0.3
+  CriticalChance: 0.35
   CriticalMultiplier: 2
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  MoveSpeed: 3.5
-  AttackDamage: 15
-  AttackRange: 0.5
-  AttackCoolDown: 1
-  m_Aggression: 0.5
-  m_ReactionTime: 0.3
+  LookAtRange: 4
+  MoveSpeed: 2.5
+  AttackDamage: 7
+  AttackRange: 0.4
+  AttackCoolDown: 0.15

@@ -20,28 +20,29 @@ public class BoxerAttackingState : AIBotState
     protected float m_ForwardDistance = 0.8f;
     protected const float LOOK_AT_DURATION = 0.2F;
     protected IDamageable m_Target;
-    protected override void OnStateEnable()
-    {
-        base.OnStateEnable();
-    }
 
+    protected override void OnStateDisable()
+    {
+        if (m_TriggerTimer <= m_BoxerAIBotController.Boxer.BoxerStats.AttackCoolDown * 0.7f)
+            m_TriggerTimer = 0;
+    }
     protected override void OnStateUpdate()
     {
         if (m_BoxerAIBotController.Target == null)
             return;
 
         float distanceTarget = Vector3.Distance(m_BoxerAIBotController.BotTransform.position, m_BoxerAIBotController.Target.GetSelfPoint());
-        bool isTooClose = distanceTarget < m_BoxerAIBotController.BoxerAIProfile?.AttackRange * 0.95f;
+        bool isTooClose = distanceTarget < m_BoxerAIBotController.Boxer.BoxerStats?.AttackRange * 0.95f;
 
         if (isTooClose)
         {
             Vector3 dirAway = (m_BoxerAIBotController.BotTransform.position - m_BoxerAIBotController.Target.GetSelfPoint()).normalized;
-            float retreatSpeed = 0.2f;
+            float retreatSpeed = 0.8f;
             Vector3 retreatVelocity = dirAway * retreatSpeed;
             m_BoxerAIBotController.CharacterController.Move(retreatVelocity * Time.deltaTime);
         }
 
-        m_BoxerAIBotController.BotTransform.DOLookAt(m_BoxerAIBotController.Target.GetSelfPoint(), LOOK_AT_DURATION);
+        m_BoxerAIBotController.BotTransform.DOLookAt(m_BoxerAIBotController.Target.GetSelfPoint(), m_BoxerAIBotController.Boxer.StatsSOData.LookAtDuration);
         m_TriggerTimer -= Time.deltaTime;
         if (m_TriggerTimer <= 0)
             PerformAttack();
@@ -54,7 +55,7 @@ public class BoxerAttackingState : AIBotState
 
         float animationLength = 0f;
         AnimatorStateInfo stateInfo = m_BoxerAIBotController.Animator.GetCurrentAnimatorStateInfo(0);
-        animationLength = stateInfo.length / Mathf.Max(stateInfo.speed, 0.01f);
+        animationLength = stateInfo.length / m_BoxerAIBotController.Boxer.AnimationKeySO.DivineAnimSpeedAttack;
 
         m_TriggerTimer = m_BoxerAIBotController.Boxer.BoxerStats.AttackCoolDown + animationLength;
         LayerMask targetLayer = m_BoxerAIBotController.Boxer.BoxerStats.TeamLayerMask;
@@ -78,7 +79,12 @@ public class BoxerAttackingState : AIBotState
     //Call In Animation
     public void HandleAttackHit()
     {
-        m_Target.TakeDamage(m_BoxerAIBotController.Boxer.BoxerStats.AttackDamage);
+        float distanceAttack = Vector3.Distance(m_BoxerAIBotController.transform.position, m_BoxerAIBotController.Target.GetSelfPoint());
+        if (distanceAttack <= m_BoxerAIBotController.Boxer.BoxerStats.AttackRange)
+        {
+            m_Target.TakeDamage(m_BoxerAIBotController.Boxer.BoxerStats.AttackDamage);
+        }
+
     }
 
     public override void InitializeState(AIBotController botController)

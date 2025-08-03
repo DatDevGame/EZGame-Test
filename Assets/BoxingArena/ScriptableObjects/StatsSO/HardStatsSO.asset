@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: HardStatsSO
   m_EditorClassIdentifier: 
   m_guid: 922e9f98b1236b64f90044e72ec64192
+  LookAtDuration: 0.2
   MaxHealth: 100
-  BlockChance: 0.2
-  CriticalChance: 0.1
+  DetectionRange: 100
+  BlockChance: 0.25
+  CriticalChance: 0.3
   CriticalMultiplier: 2
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  MoveSpeed: 3.5
-  AttackDamage: 15
+  LookAtRange: 4
+  MoveSpeed: 2
+  AttackDamage: 5
   AttackRange: 0.5
-  AttackCoolDown: 1
-  m_Aggression: 0.5
-  m_ReactionTime: 0.3
+  AttackCoolDown: 0.17

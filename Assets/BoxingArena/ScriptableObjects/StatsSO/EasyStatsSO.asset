@@ -13,16 +13,17 @@ MonoBehaviour:
   m_Name: EasyStatsSO
   m_EditorClassIdentifier: 
   m_guid: df3d35d136756e546b8a666e8fbffbee
+  LookAtDuration: 0.2
   MaxHealth: 100
+  DetectionRange: 5
   BlockChance: 0.2
-  CriticalChance: 0.1
+  CriticalChance: 0.2
   CriticalMultiplier: 2
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  MoveSpeed: 3.5
-  AttackDamage: 15
+  LookAtRange: 2
+  MoveSpeed: 1.5
+  AttackDamage: 3
   AttackRange: 0.9
-  AttackCoolDown: 0.5
-  m_Aggression: 0.5
-  m_ReactionTime: 0.3
+  AttackCoolDown: 0.2
