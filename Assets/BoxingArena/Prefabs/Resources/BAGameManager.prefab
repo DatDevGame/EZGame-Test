@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7837839071656324869}
   - component: {fileID: 5301760915406791660}
+  - component: {fileID: 91599900374850793}
   m_Layer: 0
   m_Name: BAGameManager
   m_TagString: Untagged
@@ -49,6 +50,22 @@ MonoBehaviour:
   m_Verbose: 1
   m_KeepAlive: 1
   m_DuplicateAllow: 0
+--- !u!114 &91599900374850793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120008752096195146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38606303e4f1e446abe660bfa8e6d496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SelfInitialize: 1
+  m_SceneSFXLibrarySO:
+  - {fileID: 11400000, guid: 2b8589e68e9b56b498e9650c5af414a1, type: 2}
+  m_SceneBGMLibrarySO: []
 --- !u!1001 &3319824096745179181
 PrefabInstance:
   m_ObjectHideFlags: 0

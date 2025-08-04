@@ -121,6 +121,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
                 HapticManager.Instance.PlayFlashHaptic();
                 CameraShake.Instance.Shake(0.05f, 0.2f);
                 m_TargetDamagable.TakeDamage(m_BoxStats.AttackDamage);
+                SoundManager.Instance.PlayLoopSFX(GetRandomPunchSound(), volumn: 0.5f);
             }
         }
     }

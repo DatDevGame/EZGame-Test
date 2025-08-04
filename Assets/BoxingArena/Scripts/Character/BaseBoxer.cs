@@ -116,6 +116,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     {
         m_BoxStats.Health -= incomingDamage;
         m_HealthBar.SetValue(m_BoxStats.Health + incomingDamage, m_BoxStats.Health, 0.2f);
+        SoundManager.Instance.PlayLoopSFX(GetRandomHitSound(), volumn: 0.3f);
         GameEventHandler.Invoke(PVPEventCode.CharacterReceivedDamage, this, incomingDamage);
     }
 
@@ -159,6 +160,27 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
             t = t.parent;
         }
         return depth;
+    }
+
+    protected BASoundEnum GetRandomPunchSound()
+    {
+        int roll = UnityEngine.Random.Range(0, 4);
+        if (roll == 0)
+            return BASoundEnum.PunchSmall;
+        else if (roll == 1)
+            return BASoundEnum.PunchMedium;
+        else
+            return BASoundEnum.PunchHard;
+    }
+    protected BASoundEnum GetRandomHitSound()
+    {
+        int roll = UnityEngine.Random.Range(0, 4);
+        if (roll == 0)
+            return BASoundEnum.HitDame_1;
+        else if (roll == 1)
+            return BASoundEnum.HitDame_2;
+        else
+            return BASoundEnum.HitDame_3;
     }
 
 
