@@ -652,6 +652,7 @@ MonoBehaviour:
   m_CharacterController: {fileID: 7797025186569875442}
   m_Animator: {fileID: 767342469754018869}
   m_LegsAnimator: {fileID: 3768898041291920012}
+  m_PuncherVFX: {fileID: 7520160016641905688}
   m_StatsSOData: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
 --- !u!114 &3768898041291920012 stripped
@@ -665,6 +666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3505aa6d98bd4418e0744d5ab56fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &7520160016641905688 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3057530236516058387, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 4770013760016814347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!143 &7797025186569875442 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 3316592322740911865, guid: b632992296c24b64e8aca052e536ac7c, type: 3}

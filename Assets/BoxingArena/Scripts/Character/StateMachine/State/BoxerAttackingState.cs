@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
 using Unity.VisualScripting;
+using Premium.PoolManagement;
 
 [Serializable]
 public class BoxerAttackingState : AIBotState
@@ -83,10 +84,22 @@ public class BoxerAttackingState : AIBotState
         if (distanceAttack <= m_BoxerAIBotController.Boxer.BoxerStats.AttackRange)
         {
             m_Target.TakeDamage(m_BoxerAIBotController.Boxer.BoxerStats.AttackDamage);
+            HandleAttackVFX();
         }
 
     }
-
+    protected virtual void HandleAttackVFX()
+    {
+        if (m_BoxerAIBotController.Boxer.RightHandDeep == null)
+            return;
+        ParticleSystem puncherVFX = PoolManager.GetOrCreatePool(m_BoxerAIBotController.Boxer.PuncherVFX, initialCapacity: 1).Get();
+        puncherVFX.transform.SetParent(m_BoxerAIBotController.Boxer.RightHandDeep);
+        puncherVFX.transform.localPosition = Vector3.zero;
+        puncherVFX.transform.localEulerAngles = new Vector3(90, 0, 0);
+        puncherVFX.gameObject.SetActive(true);
+        puncherVFX.Play();
+        puncherVFX.Release(m_BoxerAIBotController.Boxer.PuncherVFX, 1f);
+    }
     public override void InitializeState(AIBotController botController)
     {
         if (botController is BoxerAIBotController boxerAIBotController)

@@ -1083,8 +1083,10 @@ MonoBehaviour:
       m_RotationOrder: 4
     AlignWithDesiredMoveDirection: 0
   m_BoxerAnimationEventReceiver: {fileID: 3890176024867660865}
+  m_CharacterController: {fileID: 0}
   m_Animator: {fileID: 786132997752414939}
   m_LegsAnimator: {fileID: 575290600953609229}
+  m_PuncherVFX: {fileID: 6623386290637404825}
   m_StatsSOData: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
 --- !u!114 &1220109465953740717
@@ -1152,6 +1154,11 @@ MonoBehaviour:
       type: {class: BoxerLookToChasingTransition, ns: , asm: Assembly-CSharp}
       data:
         targetStateID: 26fb3a87-a933-4bc5-941b-8dbd366cf464
+--- !u!198 &6623386290637404825 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3057530236516058387, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 8179796077829701514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!143 &6882236993605878131 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 3316592322740911865, guid: b632992296c24b64e8aca052e536ac7c, type: 3}

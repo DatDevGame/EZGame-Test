@@ -10,8 +10,12 @@ public static class ParticleSystemExtensions
     {
         PoolManager.Instance.StartCoroutine(CommonCoroutine.Delay(delayTime, false, () =>
         {
-            if(PoolManager.ContainsPool(particlePrefab.GetInstanceID().ToString()) || PoolManager.ContainsPool(particlePrefab.gameObject.GetInstanceID().ToString()))
+            if (PoolManager.ContainsPool(particlePrefab.GetInstanceID().ToString()) || PoolManager.ContainsPool(particlePrefab.gameObject.GetInstanceID().ToString()))
+            {
                 PoolManager.Release(particlePrefab, particleInstance);
+                particleInstance.gameObject.SetActive(false);
+            }
+
         }));
     }
 }
