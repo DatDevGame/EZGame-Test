@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4aa01134e1fbaf41b2f47a21a020d61, type: 3}
-  m_Name: CurrentLevelPPrefIntVariable
+  m_Name: _OneVsManyCurrentLevelPPrefIntVariable
   m_EditorClassIdentifier: 
   m_InitialValue: 0
-  m_Key: CurrentLevelPPrefIntVariable_be4c1f0d99298314bba0218b52e2b56e
+  m_Key: OneVsManyCurrentLevelPPrefIntVariable_7483fe12fdd553b44836d175db29684d

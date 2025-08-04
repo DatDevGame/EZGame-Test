@@ -1098,12 +1098,11 @@ MonoBehaviour:
       m_RotationOrder: 4
     AlignWithDesiredMoveDirection: 0
   m_BoxerAnimationEventReceiver: {fileID: 3890176024867660865}
-  m_CharacterController: {fileID: 0}
+  m_CharacterController: {fileID: 6882236993605878131}
   m_HealthBar: {fileID: 3069025918840789953}
   m_Animator: {fileID: 786132997752414939}
   m_LegsAnimator: {fileID: 575290600953609229}
   m_PuncherVFX: {fileID: 6623386290637404825}
-  m_StatsSOData: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
 --- !u!114 &1220109465953740717
 MonoBehaviour:

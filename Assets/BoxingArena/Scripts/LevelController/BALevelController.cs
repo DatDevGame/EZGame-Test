@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using HCore.Events;
 using HCore.Helpers;
 using Premium;
+using Premium.EditableStateMachine;
 using Premium.PoolManagement;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -15,6 +16,7 @@ public class BALevelController : MonoBehaviour
     [SerializeField, BoxGroup("References")] private RectTransform m_CanvasHolder;
     [SerializeField, BoxGroup("References")] private DamageFeedBackUI m_DamageFeedBackUI;
     [SerializeField, BoxGroup("Resource")] private PlayerBoxer m_PlayerBoxerPrefab;
+    [SerializeField, BoxGroup("Data")] private StatsSO m_PlayerStatSO;
     [SerializeField, BoxGroup("Data")] private PlayModeEnum m_GameMode;
     [SerializeField, BoxGroup("Data")] private LevelManagerSO m_LevelManagerSO;
 
@@ -45,14 +47,15 @@ public class BALevelController : MonoBehaviour
         m_PlayerTeams = new List<BaseBoxer>();
         m_OpponentTeams = new List<BaseBoxer>();
 
-        m_CurrentLevelSO = m_LevelManagerSO.GetCurrentLevelDataSO();
+        m_CurrentLevelSO = m_LevelManagerSO.GetCurrentLevelDataSO(m_GameMode.value);
         m_CurrentBAMap = Instantiate(m_CurrentLevelSO.MapPrefab, transform);
-        List<Transform> spawnPoints = new List<Transform>(m_CurrentBAMap.PointSpawn);
+        List<Transform> spawnPoints = new List<Transform>(m_CurrentBAMap.GetSpawnFollowingMode(m_GameMode.value));
 
         //Spawn Player
-        Transform playerSpawnPoint = spawnPoints.GetRandom();
+        Transform playerSpawnPoint = spawnPoints[0];
         m_PlayerBoxer = Instantiate(m_PlayerBoxerPrefab);
         m_PlayerBoxer.transform.position = playerSpawnPoint.position;
+        m_PlayerBoxer.transform.eulerAngles = playerSpawnPoint.transform.eulerAngles;
         m_PlayerBoxer.gameObject.layer = GetLayerFromMask(m_PlayerTeamLayerMask);
         spawnPoints.Remove(playerSpawnPoint);
 
@@ -68,7 +71,7 @@ public class BALevelController : MonoBehaviour
                 break;
 
             case GameMode.ManyVsMany:
-                OnLoadMannyVsMany(spawnPoints);
+                OnLoadMannyVsMany();
                 break;
 
             default:
@@ -79,7 +82,8 @@ public class BALevelController : MonoBehaviour
         StartCoroutine(CommonCoroutine.Delay(3f, false, () =>
         {
             m_PlayerBoxer.Init();
-            m_OpponentTeams.ForEach(v => v.Init());
+            m_PlayerTeams.ForEach(v => v.Init(m_CurrentLevelSO.GetRandomStatsByProbability()));
+            m_OpponentTeams.ForEach(v => v.Init(m_CurrentLevelSO.GetRandomStatsByProbability()));
             GameEventHandler.Invoke(PVPEventCode.OnLevelStart, m_CurrentLevelSO, m_PlayerBoxer);
         }));
     }
@@ -95,25 +99,37 @@ public class BALevelController : MonoBehaviour
         SpawnCharacter(rollEnemy, m_OpponentTeamLayerMask, spawnPoints);
     }
 
-    private void OnLoadMannyVsMany(List<Transform> spawnPoints)
+    private void OnLoadMannyVsMany()
     {
+        List<Transform> playerSpawnPoint = new List<Transform>(m_CurrentBAMap.GetPlayerTeamSpawnPoint());
+        List<Transform> opponentSpawnPoint = new List<Transform>(m_CurrentBAMap.GetOpponentTeamSpawnPoint());
 
+        //Player Team
+        SpawnCharacter(m_CurrentLevelSO.PlayerTeamCount, m_PlayerTeamLayerMask, playerSpawnPoint);
+
+        //Opponent Team
+        SpawnCharacter(m_CurrentLevelSO.EnemyTeamCount, m_OpponentTeamLayerMask, opponentSpawnPoint);
     }
 
     private void SpawnCharacter(int count, LayerMask layerMask, List<Transform> spawnPoints)
     {
         for (int i = 0; i < count; i++)
         {
-            if (spawnPoints.Count <= 0) break;
             Transform pointSpawn = spawnPoints.GetRandom();
             CharacterSO characterSO = m_LevelManagerSO.CharacterManagerSO.initialValue.GetRandom() as CharacterSO;
             BaseBoxer baseBoxer = Instantiate(characterSO.BaseBoxerPrefab);
             baseBoxer.transform.position = pointSpawn.position;
+            baseBoxer.transform.eulerAngles = pointSpawn.eulerAngles;
             baseBoxer.gameObject.layer = GetLayerFromMask(layerMask);
             spawnPoints.Remove(pointSpawn);
 
+
             if (baseBoxer.gameObject.layer != GetLayerFromMask(m_PlayerTeamLayerMask))
                 m_OpponentTeams.Add(baseBoxer);
+            else
+            { 
+                m_PlayerTeams.Add(baseBoxer);
+            }
         }
     }
     private int GetLayerFromMask(LayerMask mask)

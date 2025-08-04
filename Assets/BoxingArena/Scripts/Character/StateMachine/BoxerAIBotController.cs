@@ -40,13 +40,6 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
         if (m_AnimationKeySO == null)
             m_AnimationKeySO = m_Boxer.AnimationKeySO;
         m_Boxer.OnDead += OnDead;
-
-        if (m_NavMeshAgent != null)
-        {
-            m_NavMeshAgent.speed = m_Boxer.StatsSOData.MoveSpeed;
-            m_NavMeshAgent.angularSpeed = m_BoxerAIProfile.RotationSpeed * 100f;
-            m_NavMeshAgent.stoppingDistance = m_BoxerAIProfile.ReachThreshold;
-        }
     }
     public override void InitializeStateMachine()
     {

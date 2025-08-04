@@ -5,6 +5,8 @@ using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 using Premium.PoolManagement;
+using Sirenix.OdinInspector;
+
 
 
 #if UNITY_EDITOR
@@ -13,6 +15,8 @@ using UnityEditor;
 
 public class PlayerBoxer : BaseBoxer, INavigationPoint
 {
+    [SerializeField, BoxGroup("Resource")] protected StatsSO m_PlayerStatsSO;
+
     protected float m_TriggerTimer;
     protected float m_ForwardDistance = 0.8f;
     protected bool m_IsLooking = false;
@@ -28,7 +32,21 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
             m_PlayerBoxerAnimationEventReceiver.SetPlayerBoxer(this);
         }
     }
-
+    public virtual void Init()
+    {
+        m_StatsSO = m_PlayerStatsSO;
+        m_BoxerAnimationEventReceiver.Init(this);
+        if (m_BoxerAnimationEventReceiver == null && m_Animator != null)
+            m_BoxerAnimationEventReceiver = m_Animator.GetComponent<BoxerAnimationEventReceiver>();
+        if (m_PuncherVFX != null && m_Animator != null)
+        {
+            Transform rightHand = m_Animator.GetBoneTransform(HumanBodyBones.RightHand);
+            m_RightHandDeep = GetDeepestChild(rightHand);
+            Transform leftHand = m_Animator.GetBoneTransform(HumanBodyBones.LeftHand);
+            m_LeftHandDeep = GetDeepestChild(leftHand);
+        }
+        UpdateStatus();
+    }
     protected virtual void Update()
     {
         if (!m_IsActive) return;
@@ -56,10 +74,10 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
         if (m_TargetNavigationPoint != null)
         {
             float attackRange = Vector3.Distance(transform.position, m_TargetNavigationPoint.GetSelfPoint());
-            if (attackRange < m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange && m_TargetNavigationPoint.IsAvailable())
+            if (attackRange < m_PlayerStatsSO.AttackRange * m_PlayerStatsSO.LookAtRange && m_TargetNavigationPoint.IsAvailable())
             {
                 m_IsLooking = true;
-                transform.DOLookAt(m_TargetNavigationPoint.GetSelfPoint(), m_StatsSOData.LookAtDuration);
+                transform.DOLookAt(m_TargetNavigationPoint.GetSelfPoint(), m_PlayerStatsSO.LookAtDuration);
             }
             else
             {
@@ -129,7 +147,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
     protected List<INavigationPoint> FindTargetsInRange()
     {
         var targets = new List<INavigationPoint>();
-        var colliders = Physics.OverlapSphere(transform.position, m_StatsSOData.DetectionRange, m_StatsSOData.TeamLayerMask);
+        var colliders = Physics.OverlapSphere(transform.position, m_PlayerStatsSO.DetectionRange, m_PlayerStatsSO.TeamLayerMask);
         foreach (var collider in colliders)
         {
             if (collider.gameObject.layer == gameObject.layer)
@@ -171,7 +189,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
 #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
-        if (m_StatsSOData == null) return;
+        if (m_PlayerStatsSO == null) return;
 
         GUIStyle style = new GUIStyle();
         style.normal.textColor = Color.white;
@@ -181,23 +199,23 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
         Vector3 center = transform.position + Vector3.up * 0.01f;
 
         // Detection Range
-        DrawCircleXZ(center, m_StatsSOData.DetectionRange, 64, Color.magenta);
-        Vector3 detectionLabelPos = center + new Vector3(0, 0.01f, -m_StatsSOData.DetectionRange + 0.2f);
+        DrawCircleXZ(center, m_PlayerStatsSO.DetectionRange, 64, Color.magenta);
+        Vector3 detectionLabelPos = center + new Vector3(0, 0.01f, -m_PlayerStatsSO.DetectionRange + 0.2f);
         Handles.color = Color.white;
-        Handles.Label(detectionLabelPos, $"Detection Range: {m_StatsSOData.DetectionRange}", style);
+        Handles.Label(detectionLabelPos, $"Detection Range: {m_PlayerStatsSO.DetectionRange}", style);
 
         // LookAt Range = AttackRange * 1.5f
-        float lookAtRange = m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange;
+        float lookAtRange = m_PlayerStatsSO.AttackRange * m_PlayerStatsSO.LookAtRange;
         DrawCircleXZ(center, lookAtRange, 64, Color.yellow);
-        Vector3 detectionLabelPos2 = center + new Vector3(0, 0.01f, -(m_StatsSOData.AttackRange * 1.5f) + 0.2f);
+        Vector3 detectionLabelPos2 = center + new Vector3(0, 0.01f, -(m_PlayerStatsSO.AttackRange * 1.5f) + 0.2f);
         Handles.color = Color.white;
-        Handles.Label(detectionLabelPos2, $"LookAt Range: {m_StatsSOData.AttackRange * 1.5f}", style);
+        Handles.Label(detectionLabelPos2, $"LookAt Range: {m_PlayerStatsSO.AttackRange * 1.5f}", style);
 
         // Attack Range
-        DrawCircleXZ(center, m_StatsSOData.AttackRange, 64, Color.red);
-        Vector3 detectionLabelPos3 = center + new Vector3(0, 0.01f, -m_StatsSOData.AttackRange + 0.2f);
+        DrawCircleXZ(center, m_PlayerStatsSO.AttackRange, 64, Color.red);
+        Vector3 detectionLabelPos3 = center + new Vector3(0, 0.01f, -m_PlayerStatsSO.AttackRange + 0.2f);
         Handles.color = Color.white;
-        Handles.Label(detectionLabelPos3, $"Attack Range: {m_StatsSOData.AttackRange}", style);
+        Handles.Label(detectionLabelPos3, $"Attack Range: {m_PlayerStatsSO.AttackRange}", style);
     }
 
     private void DrawCircleXZ(Vector3 center, float radius, int segments, Color color)

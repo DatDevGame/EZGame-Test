@@ -16,7 +16,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     public Animator Animator => m_Animator;
     public ParticleSystem PuncherVFX => m_PuncherVFX;
     public BoxerStats BoxerStats => m_BoxStats;
-    public StatsSO StatsSOData => m_StatsSOData;
+    public StatsSO StatsSOData => m_StatsSO;
     public AnimationKeySO AnimationKeySO => m_AnimationKeySO;
     public Transform RightHandDeep => m_RightHandDeep;
     public Transform LeftHandDeep => m_LeftHandDeep;
@@ -30,16 +30,17 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     [SerializeField, BoxGroup("References")] protected Animator m_Animator;
     [SerializeField, BoxGroup("References")] protected LegsAnimator m_LegsAnimator;
     [SerializeField, BoxGroup("References")] protected ParticleSystem m_PuncherVFX;
-    [SerializeField, BoxGroup("Data")] protected StatsSO m_StatsSOData;
     [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
     [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
     protected bool m_IsAlive = true;
     protected bool m_IsActive = false;
     protected Transform m_RightHandDeep;
     protected Transform m_LeftHandDeep;
+    protected StatsSO m_StatsSO;
 
-    public virtual void Init()
+    public virtual void Init(StatsSO statsSO = null)
     {
+        m_StatsSO = statsSO;
         m_BoxerAnimationEventReceiver.Init(this);
         if (m_BoxerAnimationEventReceiver == null && m_Animator != null)
             m_BoxerAnimationEventReceiver = m_Animator.GetComponent<BoxerAnimationEventReceiver>();
@@ -50,14 +51,13 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
             Transform leftHand = m_Animator.GetBoneTransform(HumanBodyBones.LeftHand);
             m_LeftHandDeep = GetDeepestChild(leftHand);
         }
-        m_IsActive = true;
         UpdateStatus();
     }
 
     protected virtual void UpdateStatus()
     {
         m_BoxStats = new BoxerStats();
-        m_BoxStats.LoadStats(m_StatsSOData);
+        m_BoxStats.LoadStats(m_StatsSO);
 
         if (m_HealthBar == null)
             m_HealthBar = gameObject.GetComponentInChildren<HealthBar>();
@@ -65,6 +65,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         RangeIntValue range = new RangeIntValue(0, m_BoxStats.Health);
         var progress = new RangeProgress<int>(range, 100);
         m_HealthBar.Init(progress);
+        m_IsActive = true;
     }
 
     public virtual void Attack(IDamageable target)
@@ -182,18 +183,4 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         else
             return BASoundEnum.HitDame_3;
     }
-
-
-#if UNITY_EDITOR
-    [Button]
-    private void Load()
-    {
-        Init();
-    }
-    [Button]
-    public void PushTest()
-    {
-        m_LegsAnimator.User_AddImpulse(m_BlockHit);
-    }
-#endif
 }

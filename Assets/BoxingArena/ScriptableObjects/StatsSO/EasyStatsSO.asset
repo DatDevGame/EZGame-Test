@@ -15,7 +15,7 @@ MonoBehaviour:
   m_guid: df3d35d136756e546b8a666e8fbffbee
   LookAtDuration: 0.2
   MaxHealth: 100
-  DetectionRange: 5
+  DetectionRange: 10
   BlockChance: 0.2
   CriticalChance: 0.2
   CriticalMultiplier: 2
@@ -23,7 +23,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 192
   LookAtRange: 2
-  MoveSpeed: 1.5
-  AttackDamage: 10
+  MoveSpeed: 1.2
+  AttackDamage: 7
   AttackRange: 0.9
   AttackCoolDown: 0.2

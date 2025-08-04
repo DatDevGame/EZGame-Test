@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(fileName = "StatsSO", menuName = "BoxingArena/StatsSO", order = 0)]
+[CreateAssetMenu(fileName = "StatsSO", menuName = "BoxingArena/Stats/StatsSO", order = 0)]
 public class StatsSO : SerializableScriptableObject
 {
     [SerializeField, BoxGroup("General")] public float LookAtDuration = 0.2F;

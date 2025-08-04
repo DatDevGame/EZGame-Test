@@ -683,8 +683,8 @@ MonoBehaviour:
   m_Animator: {fileID: 767342469754018869}
   m_LegsAnimator: {fileID: 3768898041291920012}
   m_PuncherVFX: {fileID: 7520160016641905688}
-  m_StatsSOData: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
+  m_PlayerStatsSO: {fileID: 11400000, guid: 8141de88d4f262d4c9cd967883b71a9d, type: 2}
 --- !u!114 &1810827327334249792 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6562632932833682507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}

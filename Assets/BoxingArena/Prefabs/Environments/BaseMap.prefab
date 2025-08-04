@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1937012491475070972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8188494375241178770}
-  m_Layer: 0
-  m_Name: PointHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8188494375241178770
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937012491475070972}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2305920644939291442}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5551363142988880469
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,8 +29,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8188494375241178770}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7491240842916989826
@@ -76,8 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da77fad1cc07892499461172675ef439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PointSpawn: []
-  m_PointHolder: {fileID: 8188494375241178770}
+  m_OneVsOnePointSpawn: []
+  m_OneVsManyPointSpawn: []
+  m_ManyVsManyPointSpawn: []
+  m_OneVsOnePointHolder: {fileID: 0}
+  m_OneVsManyPointHolder: {fileID: 0}
+  m_ManyVsManyPointHolder: {fileID: 0}
+  m_Mode: 0
   m_GridX: 3
   m_GridY: 3
   m_OffsetX: 1

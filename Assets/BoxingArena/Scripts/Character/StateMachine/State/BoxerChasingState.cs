@@ -24,6 +24,12 @@ public class BoxerChasingState : AIBotState
 
     protected override void OnStateEnable()
     {
+        if (m_BoxerAIBotController.NavMeshAgent != null)
+        {
+            m_BoxerAIBotController.NavMeshAgent.speed = m_BoxerAIBotController.Boxer.StatsSOData.MoveSpeed;
+            m_BoxerAIBotController.NavMeshAgent.angularSpeed = m_BoxerAIBotController.BoxerAIProfile.RotationSpeed * 100f;
+            m_BoxerAIBotController.NavMeshAgent.stoppingDistance = m_BoxerAIBotController.BoxerAIProfile.ReachThreshold;
+        }
         m_BoxerAIBotController.NavMeshAgent.isStopped = false;
     }
 

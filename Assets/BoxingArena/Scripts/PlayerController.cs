@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
             moveDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized;
 
             float speed = m_Player.BoxerStats.MoveSpeed * inputStrength;
-            m_Player.CharacterController.Move(moveDir * speed * Time.deltaTime);
+            m_Player.CharacterController.Move(moveDir * m_Player.BoxerStats.MoveSpeed * Time.deltaTime);
 
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             m_Player.transform.rotation = Quaternion.Slerp(

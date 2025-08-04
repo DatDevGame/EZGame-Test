@@ -15,15 +15,15 @@ MonoBehaviour:
   m_guid: 922e9f98b1236b64f90044e72ec64192
   LookAtDuration: 0.2
   MaxHealth: 100
-  DetectionRange: 100
+  DetectionRange: 10
   BlockChance: 0.25
   CriticalChance: 0.3
   CriticalMultiplier: 2
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
-  LookAtRange: 4
-  MoveSpeed: 2
-  AttackDamage: 5
-  AttackRange: 0.5
+  LookAtRange: 2
+  MoveSpeed: 1.7
+  AttackDamage: 12
+  AttackRange: 0.9
   AttackCoolDown: 0.17
