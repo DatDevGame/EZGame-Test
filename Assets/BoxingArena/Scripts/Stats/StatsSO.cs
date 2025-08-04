@@ -6,7 +6,7 @@ public class StatsSO : SerializableScriptableObject
 {
     [SerializeField, BoxGroup("General")] public float LookAtDuration = 0.2F;
 
-    [SerializeField, BoxGroup("Combat Stats")] public float MaxHealth = 100f;
+    [SerializeField, BoxGroup("Combat Stats")] public int MaxHealth = 100;
     [SerializeField, BoxGroup("Combat Stats")] public float DetectionRange = 100f;
     [SerializeField, BoxGroup("Combat Stats")] public float BlockChance = 0.2f;
     [SerializeField, BoxGroup("Combat Stats")] public float CriticalChance = 0.1f;

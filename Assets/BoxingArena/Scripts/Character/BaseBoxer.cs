@@ -24,6 +24,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     [SerializeField, BoxGroup("Config")] protected LegsAnimator.PelvisImpulseSettings m_BlockHit;
     [SerializeField, BoxGroup("References")] protected BoxerAnimationEventReceiver m_BoxerAnimationEventReceiver;
     [SerializeField, BoxGroup("References")] protected CharacterController m_CharacterController;
+    [SerializeField, BoxGroup("References")] protected HealthBar m_HealthBar;
     [SerializeField, BoxGroup("References")] protected Animator m_Animator;
     [SerializeField, BoxGroup("References")] protected LegsAnimator m_LegsAnimator;
     [SerializeField, BoxGroup("References")] protected ParticleSystem m_PuncherVFX;
@@ -57,6 +58,13 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     {
         m_BoxStats = new BoxerStats();
         m_BoxStats.LoadStats(m_StatsSOData);
+
+        if (m_HealthBar == null)
+            m_HealthBar = gameObject.GetComponentInChildren<HealthBar>();
+
+        RangeIntValue range = new RangeIntValue(0, m_BoxStats.Health);
+        var progress = new RangeProgress<int>(range, 100);
+        m_HealthBar.Init(progress);
     }
 
     public virtual void Attack(IDamageable target)
@@ -93,7 +101,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         if (UnityEngine.Random.value < m_BoxStats.CriticalChance)
             finalDamage *= m_BoxStats.CriticalMultiplier;
 
-        ApplyDamage(finalDamage);
+        ApplyDamage((int)finalDamage);
         if (m_BoxStats.Health <= 0)
             Die();
         else
@@ -103,9 +111,10 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         }
     }
 
-    protected virtual void ApplyDamage(float incomingDamage)
+    protected virtual void ApplyDamage(int incomingDamage)
     {
         m_BoxStats.Health -= incomingDamage;
+        m_HealthBar.SetValue(m_BoxStats.Health + incomingDamage, m_BoxStats.Health, 0.2f);
     }
 
     protected virtual void Die()

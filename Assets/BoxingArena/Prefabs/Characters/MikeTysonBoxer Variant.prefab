@@ -703,6 +703,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 4294874781951466612}
   m_SourcePrefab: {fileID: 100100000, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+--- !u!114 &829770656422934126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6562632932833682507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 5805377301817676325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52e682c71f7c499c8f3750f97fb5262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1445202058109193219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4944587871403531814, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
@@ -793,6 +804,7 @@ MonoBehaviour:
     AlignWithDesiredMoveDirection: 0
   m_BoxerAnimationEventReceiver: {fileID: 3061250554204015210}
   m_CharacterController: {fileID: 0}
+  m_HealthBar: {fileID: 829770656422934126}
   m_Animator: {fileID: 4459156413335065196}
   m_LegsAnimator: {fileID: 2805594223970914722}
   m_PuncherVFX: {fileID: 8862609529158440758}

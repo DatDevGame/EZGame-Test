@@ -4,7 +4,7 @@ using UnityEngine;
 public class BoxerStats
 {
     public LayerMask TeamLayerMask;
-    public float Health;
+    public int Health;
     public float AttackDamage;
     public float AttackRange;
     public float AttackCoolDown;

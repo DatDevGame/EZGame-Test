@@ -55,7 +55,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
         if (m_TargetNavigationPoint != null)
         {
             float attackRange = Vector3.Distance(transform.position, m_TargetNavigationPoint.GetSelfPoint());
-            if (attackRange < m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange)
+            if (attackRange < m_StatsSOData.AttackRange * m_StatsSOData.LookAtRange && m_TargetNavigationPoint.IsAvailable())
             {
                 m_IsLooking = true;
                 transform.DOLookAt(m_TargetNavigationPoint.GetSelfPoint(), m_StatsSOData.LookAtDuration);
@@ -97,7 +97,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
                 m_TargetDamagable = target;
         }
 
-        if (m_TriggerTimer <= 0)
+        if (m_TriggerTimer <= 0 && m_TargetNavigationPoint.IsAvailable())
             PerformAttack();
     }
     private void PerformAttack()

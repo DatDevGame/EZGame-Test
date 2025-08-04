@@ -650,11 +650,23 @@ MonoBehaviour:
     AlignWithDesiredMoveDirection: 0
   m_BoxerAnimationEventReceiver: {fileID: 8577439111848465433}
   m_CharacterController: {fileID: 7797025186569875442}
+  m_HealthBar: {fileID: 1810827327334249792}
   m_Animator: {fileID: 767342469754018869}
   m_LegsAnimator: {fileID: 3768898041291920012}
   m_PuncherVFX: {fileID: 7520160016641905688}
   m_StatsSOData: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
+--- !u!114 &1810827327334249792 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6562632932833682507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 4770013760016814347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52e682c71f7c499c8f3750f97fb5262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3768898041291920012 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}

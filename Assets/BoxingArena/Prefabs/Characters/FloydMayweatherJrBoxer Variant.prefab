@@ -994,6 +994,17 @@ NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 7522941094675624498, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
   m_PrefabInstance: {fileID: 8179796077829701514}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3069025918840789953 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6562632932833682507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 8179796077829701514}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52e682c71f7c499c8f3750f97fb5262, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3826596548726907308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4944587871403531814, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
@@ -1084,6 +1095,7 @@ MonoBehaviour:
     AlignWithDesiredMoveDirection: 0
   m_BoxerAnimationEventReceiver: {fileID: 3890176024867660865}
   m_CharacterController: {fileID: 0}
+  m_HealthBar: {fileID: 3069025918840789953}
   m_Animator: {fileID: 786132997752414939}
   m_LegsAnimator: {fileID: 575290600953609229}
   m_PuncherVFX: {fileID: 6623386290637404825}
