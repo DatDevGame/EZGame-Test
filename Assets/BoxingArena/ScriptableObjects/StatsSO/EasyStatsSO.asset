@@ -24,6 +24,6 @@ MonoBehaviour:
     m_Bits: 192
   LookAtRange: 2
   MoveSpeed: 1.5
-  AttackDamage: 3
+  AttackDamage: 10
   AttackRange: 0.9
   AttackCoolDown: 0.2

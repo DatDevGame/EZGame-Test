@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using FIMSpace.FProceduralAnimation;
+using HCore.Events;
 using HCore.Helpers;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
@@ -115,6 +116,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     {
         m_BoxStats.Health -= incomingDamage;
         m_HealthBar.SetValue(m_BoxStats.Health + incomingDamage, m_BoxStats.Health, 0.2f);
+        GameEventHandler.Invoke(PVPEventCode.CharacterReceivedDamage, this, incomingDamage);
     }
 
     protected virtual void Die()
