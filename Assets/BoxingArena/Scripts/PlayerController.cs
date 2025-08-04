@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using HCore.Events;
 using Premium;
 using TMPro;
 using UnityEngine;
@@ -20,10 +21,29 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if(m_Player == null)
-            m_Player = FindObjectOfType<PlayerBoxer>();
+
+        GameEventHandler.AddActionEvent(PVPEventCode.OnLevelStart, OnLevelStart);
+        GameEventHandler.AddActionEvent(PVPEventCode.OnLevelEnd, OnLevelEnd);
     }
 
+    private void OnDestroy()
+    {
+        GameEventHandler.RemoveActionEvent(PVPEventCode.OnLevelStart, OnLevelStart);
+        GameEventHandler.RemoveActionEvent(PVPEventCode.OnLevelEnd, OnLevelEnd);
+    }
+    private void OnLevelStart()
+    {
+        if (m_Player == null)
+            m_Player = FindObjectOfType<PlayerBoxer>();
+        m_Player.OnDead += OnDead;
+
+    }
+
+    private void OnLevelEnd()
+    {
+
+    }
+    
     private void Update()
     {
         if (!isActive || m_Player == null) return;
@@ -50,7 +70,10 @@ public class PlayerController : MonoBehaviour
             );
         }
     }
-
+    private void OnDead()
+    {
+        SetActive(false);
+    }
     public void SetActive(bool isActive)
     {
         this.isActive = isActive;

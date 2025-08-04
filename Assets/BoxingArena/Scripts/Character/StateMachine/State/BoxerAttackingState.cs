@@ -85,6 +85,7 @@ public class BoxerAttackingState : AIBotState
         {
             m_Target.TakeDamage(m_BoxerAIBotController.Boxer.BoxerStats.AttackDamage);
             HandleAttackVFX();
+            SoundManager.Instance.PlayLoopSFX(m_BoxerAIBotController.Boxer.GetRandomPunchSound(), volumn: 0.5f);
         }
 
     }

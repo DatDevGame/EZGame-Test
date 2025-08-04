@@ -27,6 +27,9 @@ public class BoxerLookingState : AIBotState
     {
         if (m_BoxerAIBotController != null)
         {
+            if (!m_BoxerAIBotController.Boxer.IsActive)
+                return;
+
             List<INavigationPoint> navigationPoints = m_BoxerAIBotController.FindTargetsInRange();
             if (navigationPoints.Count > 0)
             {

@@ -16,7 +16,12 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 8300000, guid: 3bc013dad63a144f180df160104b4242, type: 3}
+    - {fileID: 8300000, guid: d8515defd473f84488f61c29cc0095cb, type: 3}
+    - {fileID: 8300000, guid: c8653e903df466645b3dc4a387fa8eb3, type: 3}
+    - {fileID: 8300000, guid: db6ff05aa554050409ca718058fc9bc8, type: 3}
+    - {fileID: 8300000, guid: 7c5edd545d878e547a25e1664c6be2d2, type: 3}
+    - {fileID: 8300000, guid: b50b7cd0df39d0d478a00b75c313de11, type: 3}
+    - {fileID: 8300000, guid: ed63557b1e0a0ab419d5af6ff5a4ba5d, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -35,16 +40,76 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 6
     - Name: 
       Entry: 7
       Data: 
     - Name: $k
       Entry: 1
-      Data: BASoundEnum.Punch
+      Data: BASoundEnum.PunchSmall
     - Name: $v
       Entry: 10
       Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: BASoundEnum.PunchMedium
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: BASoundEnum.PunchHard
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: BASoundEnum.HitDame_1
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: BASoundEnum.HitDame_2
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: BASoundEnum.HitDame_3
+    - Name: $v
+      Entry: 10
+      Data: 5
     - Name: 
       Entry: 8
       Data: 

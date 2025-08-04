@@ -4,6 +4,36 @@
 public enum PVPEventCode
 {
     /// <summary>
+    /// Triggered when Start Level.
+    ///
+    /// <para>Parameters:</para>
+    /// <list type="number">
+    ///   <item>
+    ///     <description><c>0</c> — <see cref="LevelDataSO"/>: This Current Level Data.</description>
+    ///   </item>
+    ///   <item>
+    ///     <description><c>1</c> — <see cref="PlayerBoxer"/>: Player Info.</description>
+    ///   </item>
+    /// </list>
+    /// </summary>    
+    OnLevelStart,
+
+    /// <summary>
+    /// Triggered when Start Level.
+    ///
+    /// <para>Parameters:</para>
+    /// <list type="number">
+    ///   <item>
+    ///     <description><c>0</c> — <see cref="LevelDataSO"/>: Data Current Level.</description>
+    ///   </item>
+    ///   <item>
+    ///     <description><c>1</c> — <see cref="Bool"/>: IsVictory.</description>
+    ///   </item>
+    /// </list>
+    /// </summary>    
+    OnLevelEnd,
+
+    /// <summary>
     /// Triggered when a character receives damage in PvP mode.
     ///
     /// <para>Parameters:</para>

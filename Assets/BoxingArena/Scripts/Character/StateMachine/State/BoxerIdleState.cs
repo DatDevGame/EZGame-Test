@@ -28,6 +28,8 @@ public class BoxerIdleToLookingTransition : AIBotStateTransition
     protected float m_SearchDelay;
     protected override bool Decide()
     {
+        if (!m_BoxerAIBotController.Boxer.IsActive)
+            return false;
         return true;
     }
 

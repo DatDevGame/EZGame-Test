@@ -21,6 +21,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     public Transform RightHandDeep => m_RightHandDeep;
     public Transform LeftHandDeep => m_LeftHandDeep;
     public bool IsAlive => m_IsAlive;
+    public bool IsActive => m_IsActive;
 
     [SerializeField, BoxGroup("Config")] protected LegsAnimator.PelvisImpulseSettings m_BlockHit;
     [SerializeField, BoxGroup("References")] protected BoxerAnimationEventReceiver m_BoxerAnimationEventReceiver;
@@ -33,14 +34,11 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
     [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
     protected bool m_IsAlive = true;
+    protected bool m_IsActive = false;
     protected Transform m_RightHandDeep;
     protected Transform m_LeftHandDeep;
 
-    protected virtual void Start()
-    {
-        Init();
-    }
-    protected virtual void Init()
+    public virtual void Init()
     {
         m_BoxerAnimationEventReceiver.Init(this);
         if (m_BoxerAnimationEventReceiver == null && m_Animator != null)
@@ -52,6 +50,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
             Transform leftHand = m_Animator.GetBoneTransform(HumanBodyBones.LeftHand);
             m_LeftHandDeep = GetDeepestChild(leftHand);
         }
+        m_IsActive = true;
         UpdateStatus();
     }
 
@@ -116,13 +115,14 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     {
         m_BoxStats.Health -= incomingDamage;
         m_HealthBar.SetValue(m_BoxStats.Health + incomingDamage, m_BoxStats.Health, 0.2f);
-        SoundManager.Instance.PlayLoopSFX(GetRandomHitSound(), volumn: 0.3f);
+        SoundManager.Instance.PlayLoopSFX(GetRandomHitSound(), volumn: 0.15f);
         GameEventHandler.Invoke(PVPEventCode.CharacterReceivedDamage, this, incomingDamage);
     }
 
     protected virtual void Die()
     {
         m_IsAlive = false;
+        m_IsActive = false;
         m_LegsAnimator.enabled = false;
         m_Animator?.SetTrigger(m_AnimationKeySO.Dead);
         OnDead?.Invoke();
@@ -162,7 +162,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         return depth;
     }
 
-    protected BASoundEnum GetRandomPunchSound()
+    public virtual BASoundEnum GetRandomPunchSound()
     {
         int roll = UnityEngine.Random.Range(0, 4);
         if (roll == 0)
@@ -172,7 +172,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         else
             return BASoundEnum.PunchHard;
     }
-    protected BASoundEnum GetRandomHitSound()
+    public virtual BASoundEnum GetRandomHitSound()
     {
         int roll = UnityEngine.Random.Range(0, 4);
         if (roll == 0)

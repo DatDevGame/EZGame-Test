@@ -31,6 +31,7 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
 
     protected virtual void Update()
     {
+        if (!m_IsActive) return;
         DetectEnemy();
         LookAtTarget();
         OnUpdateAttack();
