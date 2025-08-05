@@ -50,6 +50,19 @@ public class BALevelController : MonoBehaviour
         OnLoadLevel();
     }
 
+    private void Update()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.W))
+            m_OpponentTeams.ForEach(v => v.DeadEditor());
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            m_PlayerBoxer.DeadEditor();
+            m_PlayerTeams.ForEach(v => v.DeadEditor());
+        }
+#endif
+    }
+
     private void OnLoadLevel()
     {
         m_AllAliveBoxers = new List<BaseBoxer>();
@@ -230,7 +243,6 @@ public class BALevelController : MonoBehaviour
         {
             m_LevelManagerSO.ManyVsManyCurrentLevel.value++;
             GameEventHandler.Invoke(PVPEventCode.OnLevelEnd, m_CurrentLevelSO, true);
-            Debug.Log($"Key Pro - Hehe");
         }
     }
 }

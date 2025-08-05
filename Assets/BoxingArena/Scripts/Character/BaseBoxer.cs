@@ -214,4 +214,11 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
 
     public void SetLocal(bool isLocal) => m_IsLocal = isLocal;
     public void SetHealthBarMaterials(Material material) => m_HealthBarMesh.material = material;
+
+    #if UNITY_EDITOR
+    public void DeadEditor()
+    {
+        HandleDamage(9999);
+    }
+    #endif
 }
