@@ -977,6 +977,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1220109465953740717}
   m_SourcePrefab: {fileID: 100100000, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+--- !u!23 &372159959774769185 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8407750683126894507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+  m_PrefabInstance: {fileID: 8179796077829701514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &575290600953609229 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
@@ -1102,7 +1107,8 @@ MonoBehaviour:
   m_HealthBar: {fileID: 3069025918840789953}
   m_Animator: {fileID: 786132997752414939}
   m_LegsAnimator: {fileID: 575290600953609229}
-  m_PuncherVFX: {fileID: 6623386290637404825}
+  m_PuncherVFX: {fileID: 19820166, guid: 3b9161edba9968c48bd058067ad18c84, type: 3}
+  m_HealthBarMesh: {fileID: 372159959774769185}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
 --- !u!114 &1220109465953740717
 MonoBehaviour:
@@ -1169,11 +1175,6 @@ MonoBehaviour:
       type: {class: BoxerLookToChasingTransition, ns: , asm: Assembly-CSharp}
       data:
         targetStateID: 26fb3a87-a933-4bc5-941b-8dbd366cf464
---- !u!198 &6623386290637404825 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3057530236516058387, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
-  m_PrefabInstance: {fileID: 8179796077829701514}
-  m_PrefabAsset: {fileID: 0}
 --- !u!143 &6882236993605878131 stripped
 CharacterController:
   m_CorrespondingSourceObject: {fileID: 3316592322740911865, guid: b632992296c24b64e8aca052e536ac7c, type: 3}

@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-
         GameEventHandler.AddActionEvent(PVPEventCode.OnLevelStart, OnLevelStart);
         GameEventHandler.AddActionEvent(PVPEventCode.OnLevelEnd, OnLevelEnd);
     }
@@ -36,7 +35,7 @@ public class PlayerController : MonoBehaviour
         if (m_Player == null)
             m_Player = FindObjectOfType<PlayerBoxer>();
         m_Player.OnDead += OnDead;
-
+        SetActive(true);
     }
 
     private void OnLevelEnd()

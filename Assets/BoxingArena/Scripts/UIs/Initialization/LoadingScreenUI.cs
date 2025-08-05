@@ -60,7 +60,6 @@ public class LoadingScreenUI : Singleton<LoadingScreenUI>
     public static void ShowImmediately()
     {
         Instance.visibilityController.ShowImmediately();
-        Instance.gameObject.SetActive(true);
     }
 
     public static void Hide()
@@ -71,6 +70,5 @@ public class LoadingScreenUI : Singleton<LoadingScreenUI>
     public static void HideImmediately()
     {
         Instance.visibilityController.HideImmediately();
-        Instance.gameObject.SetActive(false);
     }
 }

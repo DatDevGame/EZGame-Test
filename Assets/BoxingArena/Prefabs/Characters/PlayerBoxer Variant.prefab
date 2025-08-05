@@ -682,7 +682,8 @@ MonoBehaviour:
   m_HealthBar: {fileID: 1810827327334249792}
   m_Animator: {fileID: 767342469754018869}
   m_LegsAnimator: {fileID: 3768898041291920012}
-  m_PuncherVFX: {fileID: 7520160016641905688}
+  m_PuncherVFX: {fileID: 19820166, guid: 3b9161edba9968c48bd058067ad18c84, type: 3}
+  m_HealthBarMesh: {fileID: 3935066967015464608}
   m_AnimationKeySO: {fileID: 11400000, guid: b769ef57360ee2940938255053220854, type: 2}
   m_PlayerStatsSO: {fileID: 11400000, guid: 8141de88d4f262d4c9cd967883b71a9d, type: 2}
 --- !u!114 &1810827327334249792 stripped
@@ -707,9 +708,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3505aa6d98bd4418e0744d5ab56fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!198 &7520160016641905688 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3057530236516058387, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+--- !u!23 &3935066967015464608 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8407750683126894507, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
   m_PrefabInstance: {fileID: 4770013760016814347}
   m_PrefabAsset: {fileID: 0}
 --- !u!143 &7797025186569875442 stripped

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/BoxingArena/Scenes/MainScene.unity
     guid: fa6c64f8d28986a499f859c9850ad29d
   - enabled: 1
-    path: Assets/BoxingArena/Scenes/FightScene.unity
+    path: Assets/BoxingArena/Scenes/PlayScene.unity
     guid: 53efe357cf07ce740abab08e618a823e
   m_configObjects: {}

@@ -156,6 +156,8 @@ MonoBehaviour:
   m_CanvasHolder: {fileID: 6347073426493532944}
   m_DamageFeedBackUI: {fileID: 6854122322327005057, guid: 6744992309edd2548afd1fa91fd9992d, type: 3}
   m_PlayerBoxerPrefab: {fileID: 5120864167561828564, guid: 4fb63e0c2c0156943961f0fa1871cbc2, type: 3}
+  m_HealthBarSO: {fileID: 11400000, guid: 585125391e6464548b932cd08eb1f83d, type: 2}
+  m_PlayerStatSO: {fileID: 11400000, guid: 8141de88d4f262d4c9cd967883b71a9d, type: 2}
   m_GameMode: {fileID: 11400000, guid: 998134ae6200ebb4e81d82c7bc482e16, type: 2}
   m_LevelManagerSO: {fileID: 11400000, guid: 2236958bae070684ebabba1677d0d450, type: 2}
 --- !u!1001 &7764524372532640370

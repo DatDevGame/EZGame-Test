@@ -19,9 +19,9 @@ public class LevelManagerSO : SerializableScriptableObject
     {
         int currentLevel = gameMode switch
         {
-            GameMode.OneVsOne => OneVsOneCurrentLevel.value + 1,
-            GameMode.OneVsMany => OneVsManyCurrentLevel.value + 1,
-            GameMode.ManyVsMany => ManyVsManyCurrentLevel.value + 1,
+            GameMode.OneVsOne => OneVsOneCurrentLevel.value,
+            GameMode.OneVsMany => OneVsManyCurrentLevel.value,
+            GameMode.ManyVsMany => ManyVsManyCurrentLevel.value,
             _ => 0
         };
         if (currentLevel > m_LevelListSOVariable.value.Count)
@@ -37,6 +37,17 @@ public class LevelManagerSO : SerializableScriptableObject
             GameMode.OneVsMany => OneVsManyCurrentLevel.value + 1,
             GameMode.ManyVsMany => ManyVsManyCurrentLevel.value + 1,
             _ => 0
+        };
+    }
+
+    public string GetNameMode(GameMode gameMode)
+    {
+        return gameMode switch
+        {
+            GameMode.OneVsOne => "Duel",
+            GameMode.OneVsMany => "Survivor",
+            GameMode.ManyVsMany => "Team Battle",
+            _ => "Duel"
         };
     }
 }

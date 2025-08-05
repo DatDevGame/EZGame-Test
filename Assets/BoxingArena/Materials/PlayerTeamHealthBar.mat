@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HealthBarMaterial
+  m_Name: PlayerTeamHealthBar
   m_Shader: {fileID: 4800000, guid: efa6cb0eafbc7441983d7fbd6dbe388b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -40,6 +40,6 @@ Material:
     - _Width: 0.5
     m_Colors:
     - _BorderColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighHealthColor: {r: 0.030668736, g: 1, b: 0, a: 1}
-    - _LowHealthColor: {r: 1, g: 0, b: 0, a: 1}
+    - _HighHealthColor: {r: 0.050980393, g: 0.60784316, b: 1, a: 1}
+    - _LowHealthColor: {r: 0.050943315, g: 0.6066744, b: 1, a: 1}
   m_BuildTextureStacks: []

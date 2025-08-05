@@ -7,6 +7,7 @@ using HCore.Helpers;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
 {
@@ -22,6 +23,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     public Transform LeftHandDeep => m_LeftHandDeep;
     public bool IsAlive => m_IsAlive;
     public bool IsActive => m_IsActive;
+    public bool IsLocal => m_IsLocal;
 
     [SerializeField, BoxGroup("Config")] protected LegsAnimator.PelvisImpulseSettings m_BlockHit;
     [SerializeField, BoxGroup("References")] protected BoxerAnimationEventReceiver m_BoxerAnimationEventReceiver;
@@ -30,10 +32,12 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     [SerializeField, BoxGroup("References")] protected Animator m_Animator;
     [SerializeField, BoxGroup("References")] protected LegsAnimator m_LegsAnimator;
     [SerializeField, BoxGroup("References")] protected ParticleSystem m_PuncherVFX;
+    [SerializeField, BoxGroup("References")] protected MeshRenderer m_HealthBarMesh;
     [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
     [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
     protected bool m_IsAlive = true;
     protected bool m_IsActive = false;
+    protected bool m_IsLocal = false;
     protected Transform m_RightHandDeep;
     protected Transform m_LeftHandDeep;
     protected StatsSO m_StatsSO;
@@ -125,8 +129,14 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         m_IsAlive = false;
         m_IsActive = false;
         m_LegsAnimator.enabled = false;
+        m_HealthBarMesh.gameObject.SetActive(false);
+        m_CharacterController.enabled = false;
+        NavMeshAgent navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null)
+            navMeshAgent.enabled = false;
         m_Animator?.SetTrigger(m_AnimationKeySO.Dead);
         OnDead?.Invoke();
+        GameEventHandler.Invoke(PVPEventCode.AnyCharacterDead, this);
     }
 
     protected Transform GetDeepestChild(Transform parent)
@@ -183,4 +193,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         else
             return BASoundEnum.HitDame_3;
     }
+
+    public void SetLocal(bool isLocal) => m_IsLocal = isLocal;
+    public void SetHealthBarMaterials(Material material) => m_HealthBarMesh.material = material;
 }

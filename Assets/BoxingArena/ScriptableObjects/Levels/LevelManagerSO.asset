@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_guid: 2236958bae070684ebabba1677d0d450
   CurrentLevelSO: {fileID: 11400000, guid: 84ae712874d3dfd41bd5151ea5eec9ed, type: 2}
-  CurrentLevelPPrefIntVariable: {fileID: 11400000, guid: be4c1f0d99298314bba0218b52e2b56e, type: 2}
   m_LevelListSOVariable: {fileID: 11400000, guid: 2b365e10232c3a740bda2f88bbedc77f, type: 2}
+  OneVsOneCurrentLevel: {fileID: 11400000, guid: be4c1f0d99298314bba0218b52e2b56e, type: 2}
+  OneVsManyCurrentLevel: {fileID: 11400000, guid: 7483fe12fdd553b44836d175db29684d, type: 2}
+  ManyVsManyCurrentLevel: {fileID: 11400000, guid: 176f8fb54135ebb499ac2555a36d9b8e, type: 2}
   StatsManagerSO: {fileID: 11400000, guid: 016e097542e156b4a93b049de03c32f8, type: 2}
   CharacterManagerSO: {fileID: 11400000, guid: df325412fbe39334a902ce2dc29a96f8, type: 2}

@@ -46,5 +46,17 @@ public enum PVPEventCode
     ///   </item>
     /// </list>
     /// </summary>    
-    CharacterReceivedDamage
+    CharacterReceivedDamage,
+
+    /// <summary>
+    /// Triggered when a character Dead.
+    ///
+    /// <para>Parameters:</para>
+    /// <list type="number">
+    ///   <item>
+    ///     <description><c>0</c> — <see cref="BaseBoxer"/>: The character Dead.</description>
+    ///   </item>
+    /// </list>
+    /// </summary>    
+    AnyCharacterDead
 }

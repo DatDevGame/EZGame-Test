@@ -9,11 +9,16 @@ using UnityEditor;
 
 public class BA_Map : MonoBehaviour
 {
+    public PreviewCharacterHandle PreviewCharacterHandle => m_PreviewCharacterHandle;
+
     [SerializeField, BoxGroup("References")]
     private List<Transform> m_OneVsOnePointSpawn, m_OneVsManyPointSpawn, m_ManyVsManyPointSpawn, m_PlayerTeamPointSpawn, m_OpponentTeamPointSpawn;
 
     [SerializeField, BoxGroup("References")]
     private Transform m_OneVsOnePointHolder, m_OneVsManyPointHolder, m_ManyVsManyPointHolder;
+
+    [SerializeField, BoxGroup("References")]
+    private PreviewCharacterHandle m_PreviewCharacterHandle;
 
     [SerializeField, BoxGroup("Grid Settings")]
     private GameMode m_Mode;

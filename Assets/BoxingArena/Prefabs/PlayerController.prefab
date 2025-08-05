@@ -53,7 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Joystick: {fileID: 8104941183513947338}
   m_CanvasGroupVisibility: {fileID: 6946698425330349748}
-  m_JoystickBGImages: []
 --- !u!114 &6946698425330349748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,7 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CanvasGroup: {fileID: 7190710713316587428}
   _AnimationTime: 0.25
-  _ShowByDefault: 1
+  _ShowByDefault: 0
   _IsIndependentUpdate: 0
 --- !u!225 &7190710713316587428
 CanvasGroup:
