@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_guid: 8141de88d4f262d4c9cd967883b71a9d
   LookAtDuration: 0.2
-  MaxHealth: 100
+  MaxHealth: 10
   DetectionRange: 10
-  BlockChance: 0.3
-  CriticalChance: 0.3
-  CriticalMultiplier: 2
+  BlockChance: 0.6
+  CriticalChance: 0.7
+  CriticalMultiplier: 3
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
   LookAtRange: 4
   MoveSpeed: 1.5
-  AttackDamage: 9
+  AttackDamage: 15
   AttackRange: 0.9
   AttackCoolDown: 0.15

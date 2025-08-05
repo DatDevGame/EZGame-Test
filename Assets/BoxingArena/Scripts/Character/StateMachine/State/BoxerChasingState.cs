@@ -35,7 +35,8 @@ public class BoxerChasingState : AIBotState
 
     protected override void OnStateDisable()
     {
-        m_BoxerAIBotController.NavMeshAgent.isStopped = true;
+        if(m_BoxerAIBotController.NavMeshAgent.enabled)
+            m_BoxerAIBotController.NavMeshAgent.isStopped = true;
     }
 
     protected override void OnStateUpdate()

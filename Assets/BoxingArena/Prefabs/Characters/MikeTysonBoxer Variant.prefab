@@ -282,6 +282,10 @@ PrefabInstance:
       value: 0.351
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: GroundMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: GroundedParameter
       value: IsGrounded
       objectReference: {fileID: 0}
@@ -339,11 +343,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: _EditorSetupCategory
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: StabilizeCenterOfMass
       value: 0.3505535
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: _EditorMotionCategory
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: HubBackBonesElasticity
@@ -446,8 +454,12 @@ PrefabInstance:
       value: 1.143e-42
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: BaseLegAnimating.MaxFootRaise
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: BaseLegAnimating.AllowSpeedups
-      value: 0.75
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: BaseLegAnimating.SpherizePower
@@ -527,7 +539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: BaseLegAnimating.StepMoveDuration
-      value: 0.35
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: Legs.Array.data[0].AnkleForward.x

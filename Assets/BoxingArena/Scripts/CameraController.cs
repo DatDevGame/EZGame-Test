@@ -39,4 +39,9 @@ public class CameraController : MonoBehaviour
     {
 
     }
+
+    public void SetFollowing(Transform target)
+    {
+        m_FollowingPlayerCamera.m_Follow = target;
+    }
 }

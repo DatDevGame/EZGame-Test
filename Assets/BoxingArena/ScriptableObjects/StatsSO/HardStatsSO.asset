@@ -16,14 +16,14 @@ MonoBehaviour:
   LookAtDuration: 0.2
   MaxHealth: 100
   DetectionRange: 10
-  BlockChance: 0.25
-  CriticalChance: 0.3
-  CriticalMultiplier: 2
+  BlockChance: 0.6
+  CriticalChance: 0.45
+  CriticalMultiplier: 3
   TeamLayerMask:
     serializedVersion: 2
     m_Bits: 192
   LookAtRange: 2
   MoveSpeed: 1.7
-  AttackDamage: 12
+  AttackDamage: 15
   AttackRange: 0.9
   AttackCoolDown: 0.17

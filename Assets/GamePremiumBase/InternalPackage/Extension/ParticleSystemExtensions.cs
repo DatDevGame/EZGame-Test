@@ -14,8 +14,8 @@ public static class ParticleSystemExtensions
             {
                 PoolManager.Release(particlePrefab, particleInstance);
                 particleInstance.gameObject.SetActive(false);
+                particleInstance.transform.SetParent(PoolManager.Instance.transform);
             }
-
         }));
     }
 }

@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnLevelEnd()
     {
-
+        SetActive(false);
     }
-    
+
     private void Update()
     {
         if (!isActive || m_Player == null) return;

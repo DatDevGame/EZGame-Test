@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_guid: 701d52be926bce841b49005e6af3bf76
   MapPrefab: {fileID: 6148002900833723109, guid: e55a34ecdad6d1b45b318abd641ce295, type: 3}
-  MinRangeEnemy: 1
-  MaxRangeEnemy: 3
-  PlayerTeamCount: 20
-  EnemyTeamCount: 20
+  MinRangeEnemy: 2
+  MaxRangeEnemy: 4
+  PlayerTeamCount: 5
+  EnemyTeamCount: 4
   StatsProbabilities:
-  - probability: 50
+  - probability: 90
     stats: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
-  - probability: 30
+  - probability: 10
     stats: {fileID: 11400000, guid: 73bb3935f8755a94ebe1b6ad7f30a1f4, type: 2}
-  - probability: 20
+  - probability: 0
     stats: {fileID: 11400000, guid: 922e9f98b1236b64f90044e72ec64192, type: 2}

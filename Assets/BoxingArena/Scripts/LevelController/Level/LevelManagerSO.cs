@@ -24,7 +24,7 @@ public class LevelManagerSO : SerializableScriptableObject
             GameMode.ManyVsMany => ManyVsManyCurrentLevel.value,
             _ => 0
         };
-        if (currentLevel > m_LevelListSOVariable.value.Count)
+        if (currentLevel >= m_LevelListSOVariable.value.Count)
             return m_LevelListSOVariable.value.GetRandom();
         return m_LevelListSOVariable.value[currentLevel];
     }

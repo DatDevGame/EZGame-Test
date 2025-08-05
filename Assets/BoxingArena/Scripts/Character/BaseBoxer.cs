@@ -4,6 +4,8 @@ using System.Data;
 using FIMSpace.FProceduralAnimation;
 using HCore.Events;
 using HCore.Helpers;
+using Premium;
+using Premium.PoolManagement;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,6 +37,7 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     [SerializeField, BoxGroup("References")] protected MeshRenderer m_HealthBarMesh;
     [SerializeField, BoxGroup("Data")] protected AnimationKeySO m_AnimationKeySO;
     [ShowInInspector, ReadOnly] protected BoxerStats m_BoxStats;
+    private bool m_IsTryTakeDame = false;
     protected bool m_IsAlive = true;
     protected bool m_IsActive = false;
     protected bool m_IsLocal = false;
@@ -91,15 +94,29 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
     }
     protected virtual bool TryTakeDamage()
     {
-        float roll = UnityEngine.Random.Range(0f, 1f);
+        if (m_IsTryTakeDame)
+            return false;
 
+        float roll = UnityEngine.Random.Range(0f, 1f);
         if (roll < m_BoxStats.BlockChance)
         {
+            m_IsTryTakeDame = true;
             m_LegsAnimator.User_AddImpulse(m_BlockHit);
+            StartCoroutine(CommonCoroutine.Delay(1f, false, () =>
+            {
+                m_IsTryTakeDame = false;
+            }));
             return true;
         }
         return false;
     }
+
+    [Button]
+    public void TestPush()
+    {
+        m_LegsAnimator.User_AddImpulse(m_BlockHit);
+    }
+
     protected virtual void HandleDamage(float damage)
     {
         float finalDamage = damage;
@@ -134,7 +151,8 @@ public abstract class BaseBoxer : MonoBehaviour, IAttackable, IDamageable
         NavMeshAgent navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
         if (navMeshAgent != null)
             navMeshAgent.enabled = false;
-        m_Animator?.SetTrigger(m_AnimationKeySO.Dead);
+        m_Animator?.SetBool(m_AnimationKeySO.Dead, true);
+        m_Animator?.SetTrigger(m_AnimationKeySO.DeadTrigger);
         OnDead?.Invoke();
         GameEventHandler.Invoke(PVPEventCode.AnyCharacterDead, this);
     }

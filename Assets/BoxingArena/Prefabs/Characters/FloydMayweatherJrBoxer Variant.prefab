@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2613847269699611044, guid: a389451827f7c29409b3feb7eb971647, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5343fb74e9449e445ba7b8f4ed23181b, type: 2}
     - target: {fileID: 2674597687894536039, guid: a389451827f7c29409b3feb7eb971647, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -799,6 +803,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: _EditorCategory
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: GroundMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: _Editor_EnsureCount
       value: 6
       objectReference: {fileID: 0}
@@ -809,6 +821,10 @@ PrefabInstance:
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: _EditorSetupCategory
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: _EditorMotionCategory
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: NoRaycastGroundBehaviour
@@ -867,6 +883,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3764257519440520485}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: BaseLegAnimating.MaxFootRaise
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: BaseLegAnimating.AllowSpeedups
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: Legs.Array.data[0].AnkleRight.x
       value: -0.9956698
       objectReference: {fileID: 0}
@@ -913,6 +937,10 @@ PrefabInstance:
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: Legs.Array.data[1].AnkleToHeel.z
       value: -0.04184964
+      objectReference: {fileID: 0}
+    - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
+      propertyPath: BaseLegAnimating.StepMoveDuration
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8538735769338626951, guid: b632992296c24b64e8aca052e536ac7c, type: 3}
       propertyPath: Legs.Array.data[0].AnkleForward.x

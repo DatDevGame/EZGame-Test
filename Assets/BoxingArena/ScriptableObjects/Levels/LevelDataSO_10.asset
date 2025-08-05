@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7871438e165353842ad0ca74c30622e8, type: 3}
+  m_Name: LevelDataSO_10
+  m_EditorClassIdentifier: 
+  m_guid: ddbbc5837bf3cd445b096641755095c3
+  MapPrefab: {fileID: 6148002900833723109, guid: e55a34ecdad6d1b45b318abd641ce295, type: 3}
+  MinRangeEnemy: 11
+  MaxRangeEnemy: 13
+  PlayerTeamCount: 25
+  EnemyTeamCount: 30
+  StatsProbabilities:
+  - probability: 10
+    stats: {fileID: 11400000, guid: df3d35d136756e546b8a666e8fbffbee, type: 2}
+  - probability: 30
+    stats: {fileID: 11400000, guid: 73bb3935f8755a94ebe1b6ad7f30a1f4, type: 2}
+  - probability: 60
+    stats: {fileID: 11400000, guid: 922e9f98b1236b64f90044e72ec64192, type: 2}

@@ -87,11 +87,6 @@ public class PlayerBoxer : BaseBoxer, INavigationPoint
         }
     }
 
-    protected virtual void Attack()
-    {
-
-    }
-
     protected void OnUpdateAttack()
     {
         if (m_TargetNavigationPoint == null || !m_IsLooking)

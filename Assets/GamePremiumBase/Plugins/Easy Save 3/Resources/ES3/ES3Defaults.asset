@@ -33,9 +33,12 @@ MonoBehaviour:
     - Assembly-CSharp
     - Cinemachine
     - Coffee.UIParticle
+    - KinoBloom.Runtime
     - Lofelt.NiceVibrations
     - Lofelt.NiceVibrations.Demo
     - Plugins
+    - ToonyColorsPro.Runtime
+    - ToonyColorsPro2.Demo
     showAdvancedSettings: 1
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

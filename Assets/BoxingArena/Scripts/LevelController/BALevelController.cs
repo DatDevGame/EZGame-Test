@@ -12,6 +12,9 @@ using UnityEngine;
 
 public class BALevelController : MonoBehaviour
 {
+    public List<BaseBoxer> AllAliveBoxers => m_AllAliveBoxers;
+    public List<BaseBoxer> PlayerTeams => m_PlayerTeams;
+
     [SerializeField, BoxGroup("References")] private LayerMask m_PlayerTeamLayerMask;
     [SerializeField, BoxGroup("References")] private LayerMask m_OpponentTeamLayerMask;
     [SerializeField, BoxGroup("References")] private RectTransform m_CanvasHolder;
@@ -198,6 +201,8 @@ public class BALevelController : MonoBehaviour
         {
             var boxer = m_AllAliveBoxers.Find(v => v.IsLocal);
             bool isVictory = boxer != null;
+            if (isVictory)
+                m_LevelManagerSO.OneVsOneCurrentLevel.value++;
             GameEventHandler.Invoke(PVPEventCode.OnLevelEnd, m_CurrentLevelSO, isVictory);
         }
     }
@@ -210,8 +215,10 @@ public class BALevelController : MonoBehaviour
             return;
         }
         if (!m_OpponentTeams.Any(v => v.IsAlive))
+        {
+            m_LevelManagerSO.OneVsManyCurrentLevel.value++;
             GameEventHandler.Invoke(PVPEventCode.OnLevelEnd, m_CurrentLevelSO, true);
-
+        }
     }
 
     private void OnEndLevelTeamBattle()
@@ -220,7 +227,10 @@ public class BALevelController : MonoBehaviour
             GameEventHandler.Invoke(PVPEventCode.OnLevelEnd, m_CurrentLevelSO, false);
 
         if (!m_OpponentTeams.Any(v => v.IsAlive))
+        {
+            m_LevelManagerSO.ManyVsManyCurrentLevel.value++;
             GameEventHandler.Invoke(PVPEventCode.OnLevelEnd, m_CurrentLevelSO, true);
-
+            Debug.Log($"Key Pro - Hehe");
+        }
     }
 }

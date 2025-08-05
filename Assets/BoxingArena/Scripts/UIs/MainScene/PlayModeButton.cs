@@ -23,7 +23,7 @@ public class PlayModeButton : MonoBehaviour
             m_Button.onClick.AddListener(OnClickButton);
 
         m_NameMode.SetText(m_LevelManagerSO.GetNameMode(m_GameMode));
-        m_LevelI2Text.SetParameterValue("value", $"{m_LevelManagerSO.GetCurrentLevel(m_PlayModeVariable.value)}");
+        m_LevelI2Text.SetParameterValue("value", $"{m_LevelManagerSO.GetCurrentLevel(m_GameMode)}");
     }
     private void OnDestroy()
     {

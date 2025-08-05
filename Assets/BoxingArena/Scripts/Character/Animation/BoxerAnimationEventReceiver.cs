@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Premium.PoolManagement;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class BoxerAnimationEventReceiver : MonoBehaviour
 {
     protected BaseBoxer m_BaseBoxer;
     protected BoxerAttackingState m_AttackingState;
+    protected List<ParticleSystem> m_PuncherVFXs = new List<ParticleSystem>();
 
     public virtual void Init(BaseBoxer baseBoxer) => m_BaseBoxer = baseBoxer;
 
@@ -46,12 +49,25 @@ public class BoxerAnimationEventReceiver : MonoBehaviour
     protected virtual void HandleAttackVFX(Transform yourHand)
     {
         ParticleSystem puncherVFX = PoolManager.GetOrCreatePool(m_BaseBoxer.PuncherVFX, initialCapacity: 1).Get();
-        Transform hand = yourHand;
-        puncherVFX.transform.SetParent(hand);
+        if (m_PuncherVFXs == null)
+            m_PuncherVFXs = new List<ParticleSystem>();
+        m_PuncherVFXs.Add(puncherVFX);
+        puncherVFX.transform.SetParent(yourHand);
         puncherVFX.transform.localPosition = Vector3.zero;
-        puncherVFX.transform.rotation = Quaternion.LookRotation(hand.forward, hand.up);
+        puncherVFX.transform.rotation = Quaternion.LookRotation(yourHand.forward, yourHand.up);
         puncherVFX.gameObject.SetActive(true);
         puncherVFX.Play();
-        puncherVFX.Release(m_BaseBoxer.PuncherVFX, 1f);
+        puncherVFX.Release(m_BaseBoxer.PuncherVFX, 0.2f);
+    }
+
+    private void OnDestroy()
+    {
+        try
+        {
+            if (m_PuncherVFXs.Count <= 0) return;
+            for (int i = 0; i < m_PuncherVFXs.Count; i++)
+                m_PuncherVFXs[i].transform.SetParent(PoolManager.Instance.transform);
+        }
+        catch { }
     }
 }

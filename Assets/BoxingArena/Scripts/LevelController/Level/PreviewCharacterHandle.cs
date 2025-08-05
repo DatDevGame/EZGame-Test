@@ -28,7 +28,7 @@ public class PreviewCharacterHandle : MonoBehaviour
         m_CinemachinePlayerTeam.position = m_PlayerTeamStartPoint.position;
         m_CinemachineOpponentTeam.position = m_OpponentTeamStartPoint.position;
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2f);
         m_CinemachinePlayerTeam
         .DOMove(m_PlayerTeamEndPoint.position, m_PlayerPreviewDuration)
         .OnComplete(() =>
