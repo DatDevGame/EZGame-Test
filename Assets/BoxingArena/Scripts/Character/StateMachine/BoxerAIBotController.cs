@@ -95,9 +95,9 @@ public class BoxerAIBotController : AIBotController, INavigationPoint
     {
         StopStateMachine();
     }
+#if UNITY_EDITOR
     protected override void OnDrawGizmosSelected()
     {
-#if UNITY_EDITOR
         StatsSO m_GizMosBoxerAIProfile = m_Boxer.StatsSOData;
         if (m_GizMosBoxerAIProfile == null) return;
 
