@@ -44,7 +44,7 @@ public class BoxerAttackingState : AIBotState
 
         m_BoxerAIBotController.BotTransform.DOLookAt(m_BoxerAIBotController.Target.GetSelfPoint(), m_BoxerAIBotController.Boxer.StatsSOData.LookAtDuration);
         m_TriggerTimer -= Time.deltaTime;
-        if (m_TriggerTimer <= 0)
+        if (m_TriggerTimer <= 0 && m_BoxerAIBotController.Target.IsAvailable())
             PerformAttack();
     }
 
