@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using HCore.Events;
 using Premium;
 using Sirenix.OdinInspector;
@@ -76,7 +77,7 @@ public class SpectatorPanel : MonoBehaviour
     {
         if (parrams == null || parrams.Length <= 0) return;
         BaseBoxer baseBoxer = (BaseBoxer)parrams[0];
-        if (baseBoxer != null && baseBoxer.IsLocal && m_GameMode.value == GameMode.ManyVsMany)
+        if (baseBoxer != null && baseBoxer.IsLocal && m_BALevelController.PlayerTeams.Any(v => v.IsAlive) && m_GameMode.value == GameMode.ManyVsMany)
         {
             m_CanvasGroupVisibility.Show();
         }

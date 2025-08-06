@@ -4102,7 +4102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.size
-      value: 32
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_OneVsOnePointSpawn.Array.data[0]
@@ -4235,43 +4235,43 @@ PrefabInstance:
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[0]
       value: 
-      objectReference: {fileID: 7854296328953324367}
+      objectReference: {fileID: 4091719792104888757}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[1]
       value: 
-      objectReference: {fileID: 4091719792104888757}
+      objectReference: {fileID: 4059384483577509728}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[2]
       value: 
-      objectReference: {fileID: 4059384483577509728}
+      objectReference: {fileID: 5508915574828552926}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[3]
       value: 
-      objectReference: {fileID: 5508915574828552926}
+      objectReference: {fileID: 5834559695668018882}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[4]
       value: 
-      objectReference: {fileID: 5834559695668018882}
+      objectReference: {fileID: 4458346894422290422}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[5]
       value: 
-      objectReference: {fileID: 4458346894422290422}
+      objectReference: {fileID: 7848013451985507027}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[6]
       value: 
-      objectReference: {fileID: 7848013451985507027}
+      objectReference: {fileID: 7868988853484455700}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[7]
       value: 
-      objectReference: {fileID: 7868988853484455700}
+      objectReference: {fileID: 3701171231092365688}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[8]
       value: 
-      objectReference: {fileID: 3701171231092365688}
+      objectReference: {fileID: 152666441098626163}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[9]
       value: 
-      objectReference: {fileID: 152666441098626163}
+      objectReference: {fileID: 3498801780105009872}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_ManyVsManyPointSpawn.Array.data[10]
       value: 
@@ -4491,87 +4491,87 @@ PrefabInstance:
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[10]
       value: 
-      objectReference: {fileID: 3498801780105009872}
+      objectReference: {fileID: 8490601568731629076}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[11]
       value: 
-      objectReference: {fileID: 8490601568731629076}
+      objectReference: {fileID: 2525185069675044642}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[12]
       value: 
-      objectReference: {fileID: 2525185069675044642}
+      objectReference: {fileID: 557235477280431532}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[13]
       value: 
-      objectReference: {fileID: 557235477280431532}
+      objectReference: {fileID: 6315093910260427222}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[14]
       value: 
-      objectReference: {fileID: 6315093910260427222}
+      objectReference: {fileID: 8391172406221138201}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[15]
       value: 
-      objectReference: {fileID: 8391172406221138201}
+      objectReference: {fileID: 7757337498310615830}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[16]
       value: 
-      objectReference: {fileID: 7757337498310615830}
+      objectReference: {fileID: 4626202084411743947}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[17]
       value: 
-      objectReference: {fileID: 4626202084411743947}
+      objectReference: {fileID: 7163162587556617739}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[18]
       value: 
-      objectReference: {fileID: 7163162587556617739}
+      objectReference: {fileID: 1517255605628916995}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[19]
       value: 
-      objectReference: {fileID: 1517255605628916995}
+      objectReference: {fileID: 7859104627816801769}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[20]
       value: 
-      objectReference: {fileID: 7859104627816801769}
+      objectReference: {fileID: 2570748747728081580}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[21]
       value: 
-      objectReference: {fileID: 2570748747728081580}
+      objectReference: {fileID: 1472822226192739730}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[22]
       value: 
-      objectReference: {fileID: 1472822226192739730}
+      objectReference: {fileID: 7930774337327144275}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[23]
       value: 
-      objectReference: {fileID: 7930774337327144275}
+      objectReference: {fileID: 8636170632433929538}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[24]
       value: 
-      objectReference: {fileID: 8636170632433929538}
+      objectReference: {fileID: 7180589765764816371}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[25]
       value: 
-      objectReference: {fileID: 7180589765764816371}
+      objectReference: {fileID: 2668124026288328188}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[26]
       value: 
-      objectReference: {fileID: 2668124026288328188}
+      objectReference: {fileID: 1323725130891073892}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[27]
       value: 
-      objectReference: {fileID: 1323725130891073892}
+      objectReference: {fileID: 1599783935920469656}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[28]
       value: 
-      objectReference: {fileID: 1599783935920469656}
+      objectReference: {fileID: 5325691509706873125}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[29]
       value: 
-      objectReference: {fileID: 5325691509706873125}
+      objectReference: {fileID: 5729970009637135609}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[30]
       value: 
-      objectReference: {fileID: 5729970009637135609}
+      objectReference: {fileID: 1643217788582307859}
     - target: {fileID: 7491240842916989826, guid: ff0871b3bd6d8e5498f1f9bd08760501, type: 3}
       propertyPath: m_PlayerTeamPointSpawn.Array.data[31]
       value: 
