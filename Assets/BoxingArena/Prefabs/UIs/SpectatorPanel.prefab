@@ -264,6 +264,7 @@ MonoBehaviour:
   m_BALevelController: {fileID: 0}
   m_CanvasGroupVisibility: {fileID: 6765964606881062132}
   m_DefaultMaterialCharacter: {fileID: 2100000, guid: 5343fb74e9449e445ba7b8f4ed23181b, type: 2}
+  m_GameMode: {fileID: 11400000, guid: 998134ae6200ebb4e81d82c7bc482e16, type: 2}
 --- !u!114 &6765964606881062132
 MonoBehaviour:
   m_ObjectHideFlags: 0

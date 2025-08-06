@@ -11,6 +11,7 @@ public class SpectatorPanel : MonoBehaviour
     [SerializeField, BoxGroup("References")] private BALevelController m_BALevelController;
     [SerializeField, BoxGroup("References")] private CanvasGroupVisibility m_CanvasGroupVisibility;
     [SerializeField, BoxGroup("Resource")] private Material m_DefaultMaterialCharacter;
+    [SerializeField, BoxGroup("Resource")] private Variable<GameMode> m_GameMode;
 
     private CameraController m_CameraController;
     private BaseBoxer m_PreviousBoxer;
@@ -75,7 +76,7 @@ public class SpectatorPanel : MonoBehaviour
     {
         if (parrams == null || parrams.Length <= 0) return;
         BaseBoxer baseBoxer = (BaseBoxer)parrams[0];
-        if (baseBoxer != null && baseBoxer.IsLocal)
+        if (baseBoxer != null && baseBoxer.IsLocal && m_GameMode.value == GameMode.ManyVsMany)
         {
             m_CanvasGroupVisibility.Show();
         }
