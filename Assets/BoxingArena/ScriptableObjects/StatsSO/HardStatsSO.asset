@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxHealth: 100
   DetectionRange: 10
   BlockChance: 0.6
-  CriticalChance: 0.45
+  CriticalChance: 0.6
   CriticalMultiplier: 3
   TeamLayerMask:
     serializedVersion: 2
@@ -26,4 +26,4 @@ MonoBehaviour:
   MoveSpeed: 1.7
   AttackDamage: 15
   AttackRange: 0.9
-  AttackCoolDown: 0.17
+  AttackCoolDown: 0.1

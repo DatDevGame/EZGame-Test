@@ -24,8 +24,7 @@ public class BoxerAttackingState : AIBotState
 
     protected override void OnStateDisable()
     {
-        if (m_TriggerTimer <= m_BoxerAIBotController.Boxer.BoxerStats.AttackCoolDown * 0.7f)
-            m_TriggerTimer = 0;
+        m_TriggerTimer = 0;
     }
     protected override void OnStateUpdate()
     {
